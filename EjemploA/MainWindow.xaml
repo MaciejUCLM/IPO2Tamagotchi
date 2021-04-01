@@ -1,0 +1,150 @@
+﻿<Window x:Class="EjemploA.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EjemploA"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800" MinWidth="800" MinHeight="500">
+    <Window.Resources>
+        <Storyboard x:Key="eating" RepeatBehavior="2x">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="mouth">
+                <EasingColorKeyFrame KeyTime="0" Value="#FF3E3E3E">
+                    <EasingColorKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingColorKeyFrame.EasingFunction>
+                </EasingColorKeyFrame>
+            </ColorAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="mouth">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="2">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="-2">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="mouth">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="2">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="-2">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="playing" RepeatBehavior="3x">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="ellipse1">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ellipse1">
+                <EasingDoubleKeyFrame KeyTime="0" Value="141"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="110"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="160"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="141"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Top)" Storyboard.TargetName="ellipse">
+                <EasingDoubleKeyFrame KeyTime="0" Value="141"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="160"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="110"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="141"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Grid Background="#FF3C3C3C">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="300*"/>
+            <ColumnDefinition Width="200*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Image x:Name="BackgroundImage" Grid.ColumnSpan="4" Margin="0" Grid.Row="3" Grid.RowSpan="3" Source="background.jpg" Stretch="Fill"/>
+        <Canvas Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" Grid.RowSpan="2" Margin="10,10,10,10" Background="#33FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="260" AllowDrop="True">
+            <Ellipse Fill="#FFF4F4F5" Height="100" Canvas.Left="150" Stroke="Black" Canvas.Top="152" Width="100"/>
+            <Ellipse Fill="#FFF4F4F5" Height="58" Canvas.Left="171" Stroke="Black" Canvas.Top="94" Width="58"/>
+            <Ellipse x:Name="l_eye" Fill="Black" Height="15" Canvas.Left="182" Stroke="Black" Canvas.Top="110" Width="12"/>
+            <Ellipse x:Name="r_eye" Fill="Black" Height="15" Canvas.Left="207" Stroke="Black" Canvas.Top="110" Width="12"/>
+            <Path Data="M29,0.5 C44.740116,0.5 57.5,13.7076 57.5,30 57.5,45.783264 45.525147,58.671513 30.466606,59.461617 L29.975357,59.480934 30.317953,59.448372 C34.352002,58.936272 37.5,54.67767 37.5,49.5 37.5,43.977154 33.918278,39.5 29.5,39.5 25.081723,39.5 21.5,43.977154 21.5,49.5 21.5,54.850258 24.861363,59.219158 29.088322,59.486988 L29.353505,59.495369 29,59.5 C13.259885,59.5 0.50000033,46.2924 0.5,30 0.50000033,13.7076 13.259885,0.5 29,0.5 z" Fill="#FF5B5BB2" Height="60" Canvas.Left="171" Stretch="Fill" Stroke="Black" Canvas.Top="182" Width="58"/>
+            <Ellipse x:Name="ellipse1" Fill="#FF5B5BB2" Height="56" Canvas.Left="234" Stroke="Black" Canvas.Top="141" Width="56"/>
+            <Ellipse x:Name="ellipse" Fill="#FF5B5BB2" Height="56" Canvas.Left="114" Stroke="Black" Canvas.Top="141" Width="56"/>
+            <Rectangle x:Name="mouth" Fill="Black" Height="11" Canvas.Left="182" Stroke="Black" Canvas.Top="136" Width="37" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Image x:Name="imgHat" Height="88" Canvas.Left="168" Canvas.Top="37" Width="68" Source="hat.png" RenderTransformOrigin="0.368,0.5"/>
+        </Canvas>
+        <Label Content="Logros" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Premios" HorizontalAlignment="Left" Margin="0" Grid.Row="4" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Coleccionables" Grid.Column="3" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Ranking" Grid.Column="3" HorizontalAlignment="Left" Margin="0" Grid.Row="4" VerticalAlignment="Top" Foreground="White"/>
+        <StackPanel Margin="5,30,5,5" Grid.Row="3" Background="#7FA80000" Orientation="Horizontal"/>
+        <StackPanel Margin="5,30,5,5" Grid.Row="4" Background="#7F071281" Grid.RowSpan="2"/>
+        <StackPanel Margin="5,30,5,5" Grid.Row="3" Grid.Column="3" Background="#7F009E0E" Orientation="Horizontal">
+            <Image Width="50" Source="collecionable.png" MouseUp="change_bg" ToolTip="Pinche para cambiar el fondo"/>
+            <Image Width="50" Source="background.jpg" MouseUp="change_bg" ToolTip="Pinche para cambiar el fondo"/>
+            <Image Width="50" Source="hat.png" ToolTip="Pinche para cambiar el fondo" MouseLeftButtonDown="dragHatStart"/>
+        </StackPanel>
+        <StackPanel Margin="5,30,5,5" Grid.Row="4" Grid.Column="3" Background="#7F6F007A" Grid.RowSpan="2"/>
+        <Label Content="Energia" Grid.Column="1" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" Foreground="White"/>
+        <Label Content="Diversion" Grid.Column="1" HorizontalAlignment="Right" Margin="0" Grid.Row="1" VerticalAlignment="Center" Foreground="White"/>
+        <Label Content="Alimento" Grid.Column="1" HorizontalAlignment="Right" Margin="0" Grid.Row="2" VerticalAlignment="Center" Foreground="White"/>
+        <Button x:Name="DescansarBtn" Content="Descansar" Grid.Column="3" Margin="10" Click="PlayBtn_Click" Background="#FF0A54AE" Foreground="White"/>
+        <Button x:Name="JugarBtn" Content="Jugar" Grid.Column="3" Margin="10" Grid.Row="1" Click="PlayBtn_Click" Background="#FFCF2121" Foreground="White"/>
+        <Button x:Name="AlimentarBtn" Content="Alimentar" Grid.Column="3" Margin="10" Grid.Row="2" Click="PlayBtn_Click" Background="#FF16BB34" Foreground="White"/>
+        <TextBlock x:Name="MsgBlock" TextWrapping="Wrap" Text="Bienvenido" Grid.Column="1" Margin="9,8,0,0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+        <ProgressBar x:Name="EnergyBar" Grid.Column="2" Margin="5" Value="100" Foreground="#FF060EB0"/>
+        <ProgressBar x:Name="DiversificationBar" Grid.Column="2" Grid.Row="1" Margin="5" Value="100" Foreground="#FFC31E1E"/>
+        <ProgressBar x:Name="FoodBar" Grid.Column="2" Grid.Row="2" Margin="5" Value="100"/>
+        <Image Margin="0" Grid.RowSpan="3" Source="Tamagotchi.png" MouseLeftButtonUp="about_Click"/>
+    </Grid>
+</Window>
