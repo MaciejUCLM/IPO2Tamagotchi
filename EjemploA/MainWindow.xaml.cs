@@ -36,18 +36,11 @@ namespace EjemploA
 
         public void setName(string name) => mName = name;
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void GameOver()
         {
-            EnergyBar.Value -= mStep;
-            DiversificationBar.Value -= mStep;
-            FoodBar.Value -= mStep;
-
-            if (EnergyBar.Value <= 0 || DiversificationBar.Value <= 0 || FoodBar.Value <= 0)
-            {
-                MsgBlock.Text = "GAME OVER";
-                isPlaying = false;
-                buttonsEnabled(false);
-            }
+            MsgBlock.Text = "GAME OVER";
+            isPlaying = false;
+            buttonsEnabled(false);
         }
 
         private void PlayBtn_Click(object sender, RoutedEventArgs e)
@@ -163,6 +156,16 @@ namespace EjemploA
         {
             DataObject data = new DataObject((Image)sender);
             DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            EnergyBar.Value -= mStep;
+            DiversificationBar.Value -= mStep;
+            FoodBar.Value -= mStep;
+
+            if (EnergyBar.Value <= 0 || DiversificationBar.Value <= 0 || FoodBar.Value <= 0)
+                GameOver();
         }
     }
 }

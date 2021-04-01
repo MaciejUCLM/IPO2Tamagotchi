@@ -108,10 +108,10 @@
     <Resource Include="background.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="collecionable.png" />
+    <Resource Include="c2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="hat.png" />
+    <Resource Include="c1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
