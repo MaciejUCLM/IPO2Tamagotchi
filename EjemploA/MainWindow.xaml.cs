@@ -31,6 +31,8 @@ namespace EjemploA
         private double mDiversificationCoef = 1;
         private double mFoodCoef = 1;
 
+        private CollecionablesFactory mCollecionables;
+
         private string mName;
         private bool isPlaying = true;
 
@@ -40,6 +42,8 @@ namespace EjemploA
         {
             InitializeComponent();
             mRnd = new Random();
+            mCollecionables = new CollecionablesFactory(StackCollecionables, DragCollecionable_Down, ChangeBackground);
+
             WelcomeWindow window = new WelcomeWindow(this);
             Visibility = Visibility.Hidden;
             window.Closed += StartGame;
@@ -65,7 +69,10 @@ namespace EjemploA
 
         private void ChangeBackground(object sender, MouseButtonEventArgs e)
         {
-            BackgroundImage.Source = ((Image)sender).Source;
+            Image image = ((Image)sender);
+            ImageSource source = BackgroundImage.Source;
+            BackgroundImage.Source = image.Source;
+            image.Source = source;
         }
 
         private void BeginStoryboard(string name)
@@ -118,6 +125,9 @@ namespace EjemploA
                 bar.Value = Math.Min(100, bar.Value + mRnd.Next(9,15));
 
             mStep = Math.Min(20, mStep + 0.1);
+
+            if (mRnd.NextDouble() < 0.7)
+                mCollecionables.PushRandomCollecionable();
         }
 
         private void About_Click(object sender, MouseButtonEventArgs e)

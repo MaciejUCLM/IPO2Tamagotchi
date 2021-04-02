@@ -20,24 +20,28 @@ namespace EjemploA
         };
 
         private Random mRnd;
+        private MouseButtonEventHandler mHandlerDrag, mHandlerClick;
 
-        public CollecionablesFactory(StackPanel target) : base(target)
+        public CollecionablesFactory(StackPanel target, MouseButtonEventHandler drag, MouseButtonEventHandler click) : base(target)
         {
             mRnd = new Random();
+            mHandlerDrag = drag;
+            mHandlerClick = click;
         }
 
-        public void AddRandomCollecionable()
+        public void PushRandomCollecionable()
         {
             double r = mRnd.NextDouble();
+            string c;
             if (r < 0.5)
             {
-                Image draggable = CreateImageElement(DRAGGABLES[mRnd.Next(0, DRAGGABLES.Length)]);
-                Add(draggable);
+                c = DRAGGABLES[mRnd.Next(0, DRAGGABLES.Length)];
+                Add(CreateImageElement(c, mHandlerDrag));
             }
             else
             {
-                Image background = CreateImageElement(DRAGGABLES[mRnd.Next(0, DRAGGABLES.Length)]);
-                Add(background);
+                c = BACKGROUNDS[mRnd.Next(0, BACKGROUNDS.Length)];
+                Add(CreateImageElement(c, mHandlerClick));
             }
         }
     }
