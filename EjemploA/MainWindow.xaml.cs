@@ -39,8 +39,21 @@ namespace EjemploA
         public MainWindow()
         {
             InitializeComponent();
-            WelcomeDialog();
             mRnd = new Random();
+            WelcomeWindow window = new WelcomeWindow(this);
+            Visibility = Visibility.Hidden;
+            window.Closed += StartGame;
+            window.Show();
+        }
+
+        private void StartGame(object sender, EventArgs e)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+            MsgBlock.Text = "Bienvenido " + mName;
+            ButtonsEnabled(true);
         }
 
         private void GameOver()
@@ -61,38 +74,6 @@ namespace EjemploA
             ButtonsEnabled(false);
             anim.Completed += (object sender, EventArgs e) => ButtonsEnabled(true);
             anim.Begin();
-        }
-
-        private void About_Click(object sender, MouseButtonEventArgs e)
-        {
-            MessageBoxResult res = MessageBox.Show("Programa realizado por MN GBStudio.\nDesea salir?",
-                "Acerca de Tamagotchi", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (res == MessageBoxResult.Yes)
-                this.Close();
-        }
-
-        private void DragCollecionableStart(object sender, MouseButtonEventArgs e)
-        {
-            DataObject data = new DataObject((Image)sender);
-            DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
-        }
-
-        private void StartGame(object sender, EventArgs e)
-        {
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
-            timer.Tick += Timer_Tick;
-            timer.Start();
-            MsgBlock.Text = "Bienvenido " + mName;
-            ButtonsEnabled(true);
-        }
-
-        private void WelcomeDialog()
-        {
-            WelcomeWindow window = new WelcomeWindow(this);
-            Visibility = Visibility.Hidden;
-            window.Closed += StartGame;
-            window.Show();
         }
 
         private void ButtonsEnabled(bool enabled)
@@ -139,15 +120,29 @@ namespace EjemploA
             mStep = Math.Min(20, mStep + 0.1);
         }
 
-        private void CanvasDropped(object sender, DragEventArgs e)
+        private void About_Click(object sender, MouseButtonEventArgs e)
         {
-            imgHat.Source = ((Image)e.Data.GetData(typeof(Image))).Source;
-            imgHat.Visibility = Visibility.Visible;
+            MessageBoxResult res = MessageBox.Show("Programa realizado por MN GBStudio.\nDesea salir?",
+                "Acerca de Tamagotchi", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (res == MessageBoxResult.Yes)
+                this.Close();
         }
 
         private void Hat_Click(object sender, MouseButtonEventArgs e)
         {
             imgHat.Visibility = Visibility.Hidden;
+        }
+
+        private void Canvas_Drop(object sender, DragEventArgs e)
+        {
+            imgHat.Source = ((Image)e.Data.GetData(typeof(Image))).Source;
+            imgHat.Visibility = Visibility.Visible;
+        }
+
+        private void DragCollecionable_Down(object sender, MouseButtonEventArgs e)
+        {
+            DataObject data = new DataObject((Image)sender);
+            DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
         }
     }
 }
