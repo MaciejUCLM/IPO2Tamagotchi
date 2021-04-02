@@ -6,36 +6,39 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace EjemploA
 {
-    class CollecionablesFactory
+    class CollecionablesFactory : StackFactory
     {
-        private static ImageSource[] IMAGES;
-        private StackPanel mPanel;
+        private static string[] DRAGGABLES = {
+            "media\\c1.png", "media\\c2.png", "media\\c3.png"
+        };
+        private static string[] BACKGROUNDS = {
+            "media\\gdansk.jpg", "media\\hamburg.jpg", "media\\istanbul.jpg", "media\\petersburg.jpg"
+        };
 
-        public CollecionablesFactory(StackPanel target)
+        private Random mRnd;
+
+        public CollecionablesFactory(StackPanel target) : base(target)
         {
-            mPanel = target;
+            mRnd = new Random();
         }
 
-        private Image createImageElement(ImageSource src)
+        public void AddRandomCollecionable()
         {
-            Image elem = new Image();
-            elem.Source = src;
-            return elem;
-        }
-
-        private Image createImageElement(ImageSource src, MouseButtonEventHandler clickEvent)
-        {
-            Image elem = createImageElement(src);
-            elem.MouseLeftButtonDown += clickEvent;
-            return elem;
-        }
-
-        public void addRandomCollecionable()
-        {
-            mPanel.Children.Add(createImageElement());
+            double r = mRnd.NextDouble();
+            if (r < 0.5)
+            {
+                Image draggable = CreateImageElement(DRAGGABLES[mRnd.Next(0, DRAGGABLES.Length)]);
+                Add(draggable);
+            }
+            else
+            {
+                Image background = CreateImageElement(DRAGGABLES[mRnd.Next(0, DRAGGABLES.Length)]);
+                Add(background);
+            }
         }
     }
 }
