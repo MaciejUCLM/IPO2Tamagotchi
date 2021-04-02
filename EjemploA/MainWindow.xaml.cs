@@ -28,13 +28,13 @@ namespace EjemploA
         private string mName;
         private bool isPlaying = true;
 
+        public void setName(string name) => mName = name;
+
         public MainWindow()
         {
             InitializeComponent();
             welcomeDialog();
         }
-
-        public void setName(string name) => mName = name;
 
         private void GameOver()
         {
@@ -50,17 +50,17 @@ namespace EjemploA
             if (sender == DescansarBtn)
             {
                 bar = EnergyBar;
-                animDescansar();
+                beginStoryboard("sleeping");
             }
             else if (sender == AlimentarBtn)
             {
                 bar = FoodBar;
-                animEat();
+                beginStoryboard("eating");
             }
             else if (sender == JugarBtn)
             {
                 bar = DiversificationBar;
-                animPlay();
+                beginStoryboard("playing");
             }
 
             if (bar != null)
@@ -74,49 +74,12 @@ namespace EjemploA
             BackgroundImage.Source = ((Image)sender).Source;
         }
 
-        private DoubleAnimation closeEyeFactory(bool onComplete = false)
+        private void beginStoryboard(string name)
         {
-            DoubleAnimation closeEye = new DoubleAnimation();
-            closeEye.From = 15;
-            closeEye.To = 4;
-            closeEye.Duration = new Duration(TimeSpan.FromMilliseconds(700));
-            closeEye.AutoReverse = true;
-            if (onComplete)
-                closeEye.Completed += CloseEye_Completed;
-            return closeEye;
-        }
-
-        private void CloseEye_Completed(object sender, EventArgs e)
-        {
-            buttonsEnabled(true);
-        }
-
-        private void animDescansar()
-        {
+            Storyboard anim = (Storyboard)Resources[name];
             buttonsEnabled(false);
-            l_eye.BeginAnimation(Ellipse.HeightProperty, closeEyeFactory(true));
-            r_eye.BeginAnimation(Ellipse.HeightProperty, closeEyeFactory());
-        }
-
-        private void animEat()
-        {
-            Storyboard anim = (Storyboard)Resources["eating"];
-            buttonsEnabled(false);
-            anim.Completed += Eat_Completed;
+            anim.Completed += (object sender, EventArgs e) => buttonsEnabled(true);
             anim.Begin();
-        }
-
-        private void animPlay()
-        {
-            Storyboard anim = (Storyboard)Resources["playing"];
-            buttonsEnabled(false);
-            anim.Completed += Eat_Completed;
-            anim.Begin();
-        }
-
-        private void Eat_Completed(object sender, EventArgs e)
-        {
-            buttonsEnabled(true);
         }
 
         private void about_Click(object sender, MouseButtonEventArgs e)
@@ -125,6 +88,12 @@ namespace EjemploA
                 "Acerca de Tamagotchi", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
                 this.Close();
+        }
+
+        private void dragHatStart(object sender, MouseButtonEventArgs e)
+        {
+            DataObject data = new DataObject((Image)sender);
+            DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
         }
 
         private void startGame(object sender, EventArgs e)
@@ -140,6 +109,7 @@ namespace EjemploA
         private void welcomeDialog()
         {
             WelcomeWindow window = new WelcomeWindow(this);
+            Visibility = Visibility.Hidden;
             window.Closed += startGame;
             window.Show();
         }
@@ -150,12 +120,6 @@ namespace EjemploA
                 enabled = false;
             foreach (Button x in new Button[] { DescansarBtn, AlimentarBtn, JugarBtn })
                 x.IsEnabled = enabled;
-        }
-
-        private void dragHatStart(object sender, MouseButtonEventArgs e)
-        {
-            DataObject data = new DataObject((Image)sender);
-            DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
         }
 
         private void Timer_Tick(object sender, EventArgs e)

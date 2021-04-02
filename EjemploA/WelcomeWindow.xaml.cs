@@ -32,6 +32,7 @@ namespace EjemploA
             if (nameBox.Text.Length > 0)
             {
                 mOwner.setName(nameBox.Text);
+                mOwner.Visibility = Visibility.Visible;
                 Close();
             }
         }
