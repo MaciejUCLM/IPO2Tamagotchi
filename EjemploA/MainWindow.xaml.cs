@@ -23,6 +23,7 @@ namespace EjemploA
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Random mRnd;
         private DispatcherTimer timer;
 
         private double mStep = 1;
@@ -39,6 +40,7 @@ namespace EjemploA
         {
             InitializeComponent();
             WelcomeDialog();
+            mRnd = new Random();
         }
 
         private void GameOver()
@@ -132,19 +134,20 @@ namespace EjemploA
             }
 
             if (bar != null)
-                bar.Value = Math.Min(100, bar.Value + 10);
+                bar.Value = Math.Min(100, bar.Value + mRnd.Next(9,15));
 
             mStep = Math.Min(20, mStep + 0.1);
         }
 
         private void CanvasDropped(object sender, DragEventArgs e)
         {
-
+            imgHat.Source = ((Image)e.Data.GetData(typeof(Image))).Source;
+            imgHat.Visibility = Visibility.Visible;
         }
 
         private void Hat_Click(object sender, MouseButtonEventArgs e)
         {
-
+            imgHat.Visibility = Visibility.Hidden;
         }
     }
 }
