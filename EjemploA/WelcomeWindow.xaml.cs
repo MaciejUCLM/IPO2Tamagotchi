@@ -30,11 +30,13 @@ namespace EjemploA
         private void empezar_Click(object sender, RoutedEventArgs e)
         {
             if (nameBox.Text.Length > 0)
-            {
-                mOwner.SetName(nameBox.Text);
-                mOwner.Visibility = Visibility.Visible;
                 Close();
-            }
+        }
+
+        private void Win_Closed(object sender, EventArgs e)
+        {
+            mOwner.SetName(nameBox.Text);
+            mOwner.Visibility = Visibility.Visible;
         }
     }
 }

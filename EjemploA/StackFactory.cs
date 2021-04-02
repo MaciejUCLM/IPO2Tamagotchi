@@ -28,7 +28,8 @@ namespace EjemploA
         public Image CreateImageElement(string src)
         {
             Image elem = new Image();
-            elem.Stretch = Stretch.UniformToFill;
+            elem.Width = 80;
+            elem.Stretch = Stretch.Uniform;
             elem.Source = GetImageFromUri(src);
             return elem;
         }

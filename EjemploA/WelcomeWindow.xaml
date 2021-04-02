@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EjemploA"
         mc:Ignorable="d"
-        Title="Tamagotchi Empezar" Height="300" Width="500" ResizeMode="NoResize" Topmost="True" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+        Title="Tamagotchi Empezar" Height="300" Width="500" ResizeMode="NoResize" Topmost="True" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Closed="Win_Closed">
     <Grid>
         <Grid.Background>
             <RadialGradientBrush>
