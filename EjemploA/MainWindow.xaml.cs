@@ -33,35 +33,35 @@ namespace EjemploA
         private string mName;
         private bool isPlaying = true;
 
-        public void setName(string name) => mName = name;
+        public void SetName(string name) => mName = name;
 
         public MainWindow()
         {
             InitializeComponent();
-            welcomeDialog();
+            WelcomeDialog();
         }
 
         private void GameOver()
         {
             MsgBlock.Text = "GAME OVER";
             isPlaying = false;
-            buttonsEnabled(false);
+            ButtonsEnabled(false);
         }
 
-        private void change_bg(object sender, MouseButtonEventArgs e)
+        private void ChangeBackground(object sender, MouseButtonEventArgs e)
         {
             BackgroundImage.Source = ((Image)sender).Source;
         }
 
-        private void beginStoryboard(string name)
+        private void BeginStoryboard(string name)
         {
             Storyboard anim = (Storyboard)Resources[name];
-            buttonsEnabled(false);
-            anim.Completed += (object sender, EventArgs e) => buttonsEnabled(true);
+            ButtonsEnabled(false);
+            anim.Completed += (object sender, EventArgs e) => ButtonsEnabled(true);
             anim.Begin();
         }
 
-        private void about_Click(object sender, MouseButtonEventArgs e)
+        private void About_Click(object sender, MouseButtonEventArgs e)
         {
             MessageBoxResult res = MessageBox.Show("Programa realizado por MN GBStudio.\nDesea salir?",
                 "Acerca de Tamagotchi", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -69,31 +69,31 @@ namespace EjemploA
                 this.Close();
         }
 
-        private void dragHatStart(object sender, MouseButtonEventArgs e)
+        private void DragCollecionableStart(object sender, MouseButtonEventArgs e)
         {
             DataObject data = new DataObject((Image)sender);
             DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
         }
 
-        private void startGame(object sender, EventArgs e)
+        private void StartGame(object sender, EventArgs e)
         {
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1000);
             timer.Tick += Timer_Tick;
             timer.Start();
             MsgBlock.Text = "Bienvenido " + mName;
-            buttonsEnabled(true);
+            ButtonsEnabled(true);
         }
 
-        private void welcomeDialog()
+        private void WelcomeDialog()
         {
             WelcomeWindow window = new WelcomeWindow(this);
             Visibility = Visibility.Hidden;
-            window.Closed += startGame;
+            window.Closed += StartGame;
             window.Show();
         }
 
-        private void buttonsEnabled(bool enabled)
+        private void ButtonsEnabled(bool enabled)
         {
             if (!isPlaying)
                 enabled = false;
@@ -118,23 +118,33 @@ namespace EjemploA
             if (sender == DescansarBtn)
             {
                 bar = EnergyBar;
-                beginStoryboard("sleeping");
+                BeginStoryboard("sleeping");
             }
             else if (sender == AlimentarBtn)
             {
                 bar = FoodBar;
-                beginStoryboard("eating");
+                BeginStoryboard("eating");
             }
             else if (sender == JugarBtn)
             {
                 bar = DiversificationBar;
-                beginStoryboard("playing");
+                BeginStoryboard("playing");
             }
 
             if (bar != null)
                 bar.Value = Math.Min(100, bar.Value + 10);
 
             mStep = Math.Min(20, mStep + 0.1);
+        }
+
+        private void CanvasDropped(object sender, DragEventArgs e)
+        {
+
+        }
+
+        private void Hat_Click(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
