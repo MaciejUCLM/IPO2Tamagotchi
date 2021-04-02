@@ -24,7 +24,12 @@ namespace EjemploA
     public partial class MainWindow : Window
     {
         private DispatcherTimer timer;
+
         private double mStep = 1;
+        private double mEnergyCoef = 1;
+        private double mDiversificationCoef = 1;
+        private double mFoodCoef = 1;
+
         private string mName;
         private bool isPlaying = true;
 
@@ -41,32 +46,6 @@ namespace EjemploA
             MsgBlock.Text = "GAME OVER";
             isPlaying = false;
             buttonsEnabled(false);
-        }
-
-        private void PlayBtn_Click(object sender, RoutedEventArgs e)
-        {
-            ProgressBar bar = null;
-
-            if (sender == DescansarBtn)
-            {
-                bar = EnergyBar;
-                beginStoryboard("sleeping");
-            }
-            else if (sender == AlimentarBtn)
-            {
-                bar = FoodBar;
-                beginStoryboard("eating");
-            }
-            else if (sender == JugarBtn)
-            {
-                bar = DiversificationBar;
-                beginStoryboard("playing");
-            }
-
-            if (bar != null)
-                bar.Value = Math.Min(100, bar.Value + 10);
-
-            mStep = Math.Min(20, mStep + 0.1);
         }
 
         private void change_bg(object sender, MouseButtonEventArgs e)
@@ -124,12 +103,38 @@ namespace EjemploA
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            EnergyBar.Value -= mStep;
-            DiversificationBar.Value -= mStep;
-            FoodBar.Value -= mStep;
+            EnergyBar.Value -= mStep * mEnergyCoef;
+            DiversificationBar.Value -= mStep * mDiversificationCoef;
+            FoodBar.Value -= mStep * mFoodCoef;
 
             if (EnergyBar.Value <= 0 || DiversificationBar.Value <= 0 || FoodBar.Value <= 0)
                 GameOver();
+        }
+
+        private void PlayBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ProgressBar bar = null;
+
+            if (sender == DescansarBtn)
+            {
+                bar = EnergyBar;
+                beginStoryboard("sleeping");
+            }
+            else if (sender == AlimentarBtn)
+            {
+                bar = FoodBar;
+                beginStoryboard("eating");
+            }
+            else if (sender == JugarBtn)
+            {
+                bar = DiversificationBar;
+                beginStoryboard("playing");
+            }
+
+            if (bar != null)
+                bar.Value = Math.Min(100, bar.Value + 10);
+
+            mStep = Math.Min(20, mStep + 0.1);
         }
     }
 }

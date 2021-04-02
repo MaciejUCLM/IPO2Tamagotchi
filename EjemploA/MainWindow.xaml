@@ -320,7 +320,7 @@
                     </TransformGroup>
                 </Path.RenderTransform>
             </Path>
-            <Image x:Name="imgHat" Height="60.25" Canvas.Left="156.5" Canvas.Top="35" Width="85.75" Source="c2.png" RenderTransformOrigin="0.5,0.964">
+            <Image x:Name="imgHat" Height="60.25" Canvas.Left="156.5" Canvas.Top="35" Width="85.75" Source="c2.png" RenderTransformOrigin="0.5,0.964" Visibility="Hidden">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -398,7 +398,6 @@
         <StackPanel x:Name="StackAchievements" Margin="5,30,5,5" Grid.Row="3" Background="#7FA80000" Orientation="Horizontal"/>
         <StackPanel x:Name="StackRewards" Margin="5,30,5,5" Grid.Row="4" Background="#7F071281" Grid.RowSpan="2"/>
         <StackPanel x:Name="StackCollecionables" Margin="5,30,5,5" Grid.Row="3" Grid.Column="3" Background="#7F009E0E" Orientation="Horizontal">
-            <Image Width="50" Source="c1.png" MouseUp="change_bg" ToolTip="Pinche para cambiar el fondo"/>
             <Image Width="50" Source="background.jpg" MouseUp="change_bg" ToolTip="Pinche para cambiar el fondo"/>
             <Image Width="50" Source="c2.png" ToolTip="Pinche para cambiar el fondo" MouseLeftButtonDown="dragHatStart"/>
         </StackPanel>
