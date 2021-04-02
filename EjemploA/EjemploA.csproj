@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CollecionablesFactory.cs" />
     <Compile Include="WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
@@ -102,16 +103,23 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Tamagotchi.png" />
+    <Resource Include="media\Tamagotchi.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="background.jpg" />
+    <Resource Include="media\background.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="c2.png" />
+    <Resource Include="media\c2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="c1.png" />
+    <Resource Include="media\c1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="media\c3.png" />
+    <Resource Include="media\gdansk.jpg" />
+    <Resource Include="media\hamburg.jpg" />
+    <Resource Include="media\istanbul.jpg" />
+    <Resource Include="media\petersburg.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
