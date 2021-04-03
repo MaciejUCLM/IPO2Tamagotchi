@@ -126,7 +126,7 @@ namespace EjemploA
 
             mStep = Math.Min(20, mStep + 0.1);
 
-            if (mRnd.NextDouble() < 0.5)
+            if (mRnd.NextDouble() < 0.2)
                 mCollecionables.PushRandomCollecionable();
         }
 

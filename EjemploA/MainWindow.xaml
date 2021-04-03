@@ -395,16 +395,16 @@
         <Label Content="Premios" HorizontalAlignment="Left" Margin="0" Grid.Row="4" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Coleccionables" Grid.Column="3" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Ranking" Grid.Column="3" HorizontalAlignment="Left" Margin="0" Grid.Row="4" VerticalAlignment="Top" Foreground="White"/>
-        <ScrollViewer Margin="5,30,5,5" Grid.Row="3">
+        <ScrollViewer Margin="5,30,5,5" Grid.Row="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <StackPanel x:Name="StackAchievements" Background="#7FA80000" Orientation="Horizontal" />
         </ScrollViewer>
-        <ScrollViewer Margin="5,30,5,5" Grid.Row="4" Grid.RowSpan="2">
+        <ScrollViewer Margin="5,30,5,5" Grid.Row="4" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="StackRewards" Background="#7F071281" />
         </ScrollViewer>
-        <ScrollViewer Margin="5,30,5,5" Grid.Row="3" Grid.Column="3">
+        <ScrollViewer Margin="5,30,5,5" Grid.Row="3" Grid.Column="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <StackPanel x:Name="StackCollecionables" Background="#7F009E0E" Orientation="Horizontal" />
         </ScrollViewer>
-        <ScrollViewer Margin="5,30,5,5" Grid.Row="4" Grid.Column="3" Grid.RowSpan="2">
+        <ScrollViewer Margin="5,30,5,5" Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="StackRanking" Background="#7F6F007A" />
         </ScrollViewer>
         <Label Content="Energia" Grid.Column="1" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" Foreground="White"/>
