@@ -33,15 +33,20 @@ namespace EjemploA
         {
             double r = mRnd.NextDouble();
             string c;
+            Image i;
             if (r < 0.5)
             {
                 c = DRAGGABLES[mRnd.Next(0, DRAGGABLES.Length)];
-                Add(CreateImageElement(c, mHandlerDrag));
+                i = CreateImageElement(c, mHandlerDrag);
+                i.ToolTip = "Arrasta este elemento a Tamagotchi";
+                Add(i);
             }
             else
             {
                 c = BACKGROUNDS[mRnd.Next(0, BACKGROUNDS.Length)];
-                Add(CreateImageElement(c, mHandlerClick));
+                i = CreateImageElement(c, mHandlerClick);
+                i.ToolTip = "Haz click para activar";
+                Add(i);
             }
         }
     }
