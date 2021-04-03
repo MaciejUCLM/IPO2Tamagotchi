@@ -56,17 +56,22 @@ namespace Tamagotchi
 
         private void StartGame(object sender, EventArgs e)
         {
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
-            timer.Tick += Timer_Tick;
-            timer.Start();
-            MsgBlock.Text = "Bienvenido " + mName;
-            ButtonsEnabled(true);
+            if (mName == "")
+                Close();
+            else
+            {
+                timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromMilliseconds(1000);
+                timer.Tick += Timer_Tick;
+                timer.Start();
+                MsgBlock.Text = "Bienvenido " + mName;
+                ButtonsEnabled(true);
+            }
         }
 
         private void GameOver()
         {
-            MsgBlock.Text = "GAME OVER";
+            MsgBlock.Text = "GAMEOVER";
             isPlaying = false;
             ButtonsEnabled(false);
         }
@@ -144,7 +149,7 @@ namespace Tamagotchi
 
         private void Item_Click(object sender, MouseButtonEventArgs e)
         {
-            // get type
+            // type of the item
         }
 
         private void Hat_Click(object sender, MouseButtonEventArgs e)

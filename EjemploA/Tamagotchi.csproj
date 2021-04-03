@@ -64,7 +64,6 @@
       <DependentUpon>GameoverWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ItemCollecionable.cs" />
-    <Compile Include="StackFactory.cs" />
     <Compile Include="WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>
