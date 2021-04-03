@@ -30,19 +30,12 @@ namespace Tamagotchi
 
         public void PushRandomCollecionable()
         {
-            Collecionable c;
-            int i;
-            Image im;
-
             if (mItems.Count > 0)
             {
-                i = mRnd.Next(0, mItems.Count);
-                c = mItems[i];
+                int i = mRnd.Next(0, mItems.Count);
+                Collecionable c = mItems[i];
                 mItems.RemoveAt(i);
-
-                im = CreateImageElement(c.Icon, c.Click);
-                im.ToolTip = c.Tooltip;
-                Add(im);
+                Add(c.Icon);
             }
         }
     }

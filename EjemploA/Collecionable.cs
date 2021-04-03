@@ -37,6 +37,7 @@ namespace Tamagotchi
             elem.Stretch = Stretch.Uniform;
             elem.HorizontalAlignment = HorizontalAlignment.Center;
             elem.VerticalAlignment = VerticalAlignment.Center;
+            elem.ToolTip = Tooltip;
             elem.Source = GetImageFromUri(src);
             return elem;
         }
