@@ -1,7 +1,7 @@
-﻿<Application x:Class="EjemploA.App"
+﻿<Application x:Class="Tamagotchi.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:EjemploA"
+             xmlns:local="clr-namespace:Tamagotchi"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

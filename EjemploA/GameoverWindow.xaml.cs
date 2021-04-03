@@ -15,28 +15,21 @@ using System.Windows.Shapes;
 namespace Tamagotchi
 {
     /// <summary>
-    /// Interaction logic for WelcomeWindow.xaml
+    /// Interaction logic for GameoverWindow.xaml
     /// </summary>
-    public partial class WelcomeWindow : Window
+    public partial class GameoverWindow : Window
     {
         private MainWindow mOwner;
 
-        public WelcomeWindow(MainWindow owner)
+        public GameoverWindow(MainWindow owner)
         {
             InitializeComponent();
             mOwner = owner;
         }
 
-        private void empezar_Click(object sender, RoutedEventArgs e)
-        {
-            if (nameBox.Text.Length > 0)
-                Close();
-        }
-
         private void Win_Closed(object sender, EventArgs e)
         {
-            mOwner.SetName(nameBox.Text);
-            mOwner.Visibility = Visibility.Visible;
+            mOwner.Close();
         }
     }
 }

@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace EjemploA
+namespace Tamagotchi
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -42,7 +42,11 @@ namespace EjemploA
         {
             InitializeComponent();
             mRnd = new Random();
-            mCollecionables = new CollecionablesFactory(StackCollecionables, DragCollecionable_Down, ChangeBackground);
+
+            ItemCollecionable.clickHandler = null;
+            BackgroundCollecionable.clickHandler = ChangeBackground;
+            DraggableCollecionable.clickHandler = DragCollecionable_Down;
+            mCollecionables = new CollecionablesFactory(StackCollecionables);
 
             WelcomeWindow window = new WelcomeWindow(this);
             Visibility = Visibility.Hidden;
@@ -136,6 +140,11 @@ namespace EjemploA
                 "Acerca de Tamagotchi", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
                 this.Close();
+        }
+
+        private void Item_Click(object sender, MouseButtonEventArgs e)
+        {
+            // get type
         }
 
         private void Hat_Click(object sender, MouseButtonEventArgs e)
