@@ -30,16 +30,21 @@ namespace Tamagotchi
             { TYPES.FREEZE_FOOD, "Haz click para frenar bajando de alimento" }
         };
 
-        public static MouseButtonEventHandler clickHandler = null;
-
         private TYPES mType;
         
         public TYPES Type { get => mType; }
 
-        public ItemCollecionable(string icon, TYPES type)
-            : base(icon, tooltipPairs[type], clickHandler)
+        public ItemCollecionable(string icon, TYPES type, MouseButtonEventHandler clickHandler)
+            : base(icon, tooltipPairs[type], clickHandler, false)
         {
             mType = type;
+            if (type == TYPES.REFILL)
+                OneShot = true;
+        }
+
+        public override Collecionable Copy()
+        {
+            return new ItemCollecionable(mPath, Type, mHandler);
         }
     }
 }

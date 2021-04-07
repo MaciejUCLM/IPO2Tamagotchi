@@ -133,5 +133,14 @@
     <Resource Include="media\istanbul.jpg" />
     <Resource Include="media\petersburg.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="media\icons8-double-right.png" />
+    <Resource Include="media\icons8-gift.png" />
+    <Resource Include="media\icons8-medal.png" />
+    <Resource Include="media\icons8-prize.png" />
+    <Resource Include="media\icons8-question-mark.png" />
+    <Resource Include="media\icons8-skip-15-seconds-back.png" />
+    <Resource Include="media\icons8-trophy.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

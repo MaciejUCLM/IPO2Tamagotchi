@@ -10,19 +10,19 @@ namespace Tamagotchi
     {
         public enum TYPES
         {
-            eating,
-            playing,
-            sleeping
+            EATING,
+            PLAYING,
+            SLEEPING
         }
 
         private static string[] COMMENTS_EATING = {
-            "Mmmm, que rica!", "Me gusta comer"
+            "Mmmm, que rica!", "Me gusta comer", "Tamagotchi está comiendo!"
         };
         private static string[] COMMENTS_PLAYING = {
-            "Yaaaay!", "Bailando!", "Subeme la radio!"
+            "Yaaaay!", "Bailando!", "Subeme la radio!", "Tamagotchi está jugando!"
         };
         private static string[] COMMENTS_SLEEPING = {
-            "zzz"
+            "zzz", "Tamagotchi ahora se siente más descansado"
         };
 
         private Random mRnd;
@@ -35,12 +35,12 @@ namespace Tamagotchi
         public string GetComment(TYPES type)
         {
             string[] set;
-            if (type == TYPES.eating)
+            if (type == TYPES.EATING)
                 set = COMMENTS_EATING;
-            else if (type == TYPES.playing)
-                set = COMMENTS_PLAYING;
-            else
+            else if (type == TYPES.SLEEPING)
                 set = COMMENTS_SLEEPING;
+            else
+                set = COMMENTS_PLAYING;
             return set[mRnd.Next(0, set.Length)];
         }
     }

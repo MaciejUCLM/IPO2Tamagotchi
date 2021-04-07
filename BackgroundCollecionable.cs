@@ -9,11 +9,14 @@ namespace Tamagotchi
 {
     class BackgroundCollecionable : Collecionable
     {
-        public static MouseButtonEventHandler clickHandler = null;
-
-        public BackgroundCollecionable(string icon)
+        public BackgroundCollecionable(string icon, MouseButtonEventHandler clickHandler)
             : base(icon, "Haz click para activar", clickHandler)
         {
+        }
+
+        public override Collecionable Copy()
+        {
+            return new BackgroundCollecionable(mPath, mHandler);
         }
     }
 }

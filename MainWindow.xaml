@@ -399,7 +399,7 @@
             <WrapPanel x:Name="StackAchievements" Background="#7FA80000" />
         </ScrollViewer>
         <ScrollViewer Margin="5,30,5,5" Grid.Row="4" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto">
-            <StackPanel x:Name="StackRewards" Background="#7F071281" />
+            <WrapPanel x:Name="StackRewards" Background="#7F071281" />
         </ScrollViewer>
         <ScrollViewer Margin="5,30,5,5" Grid.Row="3" Grid.Column="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             <WrapPanel x:Name="StackCollecionables" Background="#7F009E0E" />
