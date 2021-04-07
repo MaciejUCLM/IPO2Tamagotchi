@@ -143,7 +143,7 @@ namespace Tamagotchi
 
             if (EnergyBar.Value <= 0 || DiversificationBar.Value <= 0 || FoodBar.Value <= 0)
                 GameOver();
-            else if (mRnd.NextDouble() < 0.1)
+            else if (mRnd.NextDouble() < 0.02)
                 mBonuses.PushRandomCollecionable();
         }
 
@@ -234,13 +234,14 @@ namespace Tamagotchi
 
         private void Canvas_Drop(object sender, DragEventArgs e)
         {
-            imgHat.Source = ((Image)e.Data.GetData(typeof(Image))).Source;
+            Image img = (Image)e.Data.GetData(typeof(DraggableCollecionable));
+            imgHat.Source = img.Source;
             imgHat.Visibility = Visibility.Visible;
         }
 
         private void DragCollecionable_Down(object sender, MouseButtonEventArgs e)
         {
-            DataObject data = new DataObject((Image)sender);
+            DataObject data = new DataObject(sender as Image);
             DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
         }
     }
