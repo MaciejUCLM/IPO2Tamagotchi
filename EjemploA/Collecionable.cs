@@ -11,35 +11,23 @@ using System.Windows.Media.Imaging;
 
 namespace Tamagotchi
 {
-    abstract class Collecionable
+    abstract class Collecionable : Image
     {
-        protected string mTooltip;
-        protected MouseButtonEventHandler mClick;
-        protected Image mImage;
-
-        public Image Icon { get => mImage; }
-        public string Tooltip { get => mTooltip; }
-        public MouseButtonEventHandler Click { get => mClick; }
-
         public Collecionable(string icon, string tooltip, MouseButtonEventHandler click)
         {
-            mTooltip = tooltip;
-            mClick = click;
-            mImage = CreateImageElement(icon);
-            if (Click != null)
-                mImage.MouseLeftButtonDown += Click;
+            InitializeImage(icon, tooltip);
+            if (click != null)
+                this.MouseLeftButtonDown += click;
         }
 
-        private Image CreateImageElement(string src)
+        private void InitializeImage(string src, string tooltip)
         {
-            Image elem = new Image();
-            elem.Width = 50;
-            elem.Stretch = Stretch.Uniform;
-            elem.HorizontalAlignment = HorizontalAlignment.Center;
-            elem.VerticalAlignment = VerticalAlignment.Center;
-            elem.ToolTip = Tooltip;
-            elem.Source = GetImageFromUri(src);
-            return elem;
+            this.Width = 50;
+            this.Stretch = Stretch.Uniform;
+            this.HorizontalAlignment = HorizontalAlignment.Center;
+            this.VerticalAlignment = VerticalAlignment.Center;
+            this.Source = GetImageFromUri(src);
+            this.ToolTip = tooltip;
         }
 
         private ImageSource GetImageFromUri(string uri)
