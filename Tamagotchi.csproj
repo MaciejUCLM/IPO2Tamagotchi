@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Achievement.cs" />
     <Compile Include="BackgroundCollecionable.cs" />
     <Compile Include="Collecionable.cs" />
     <Compile Include="CollecionablesController.cs" />
@@ -64,6 +65,8 @@
       <DependentUpon>GameoverWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ItemCollecionable.cs" />
+    <Compile Include="PlayerData.cs" />
+    <Compile Include="RankingFactory.cs" />
     <Compile Include="WelcomeWindow.xaml.cs">
       <DependentUpon>WelcomeWindow.xaml</DependentUpon>
     </Compile>

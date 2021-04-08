@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tamagotchi
 {
+    [Serializable]
     class PlayerData
     {
         private string mName;
