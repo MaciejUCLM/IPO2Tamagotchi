@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tamagotchi"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800" MinWidth="800" MinHeight="500">
+        Title="MainWindow" Height="500" Width="800" MinWidth="800" MinHeight="500" Closing="Win_Closing">
     <Window.Resources>
         <Storyboard x:Key="eating" RepeatBehavior="2x">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="mouth">

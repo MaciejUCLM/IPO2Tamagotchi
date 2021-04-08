@@ -24,6 +24,9 @@ namespace Tamagotchi
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static double DROP_CHANCE = 0.1;
+        private static double BONUS_CHANCE = 0.03;
+
         private Random mRnd;
         private DispatcherTimer timer;
         private DispatcherTimer freezer;
@@ -36,10 +39,9 @@ namespace Tamagotchi
         private CollecionablesController mCollecionables;
         private CollecionablesController mBonuses;
 
+        private List<PlayerData> database;
         private PlayerData mPlayer;
         private bool isPlaying = true;
-
-        public void SetName(string name) => mPlayer = new PlayerData(name, TimeSpan.Zero);
 
         public MainWindow()
         {
@@ -90,6 +92,22 @@ namespace Tamagotchi
             window.Show();
         }
 
+        public void SetName(string name)
+        {
+            var persistence = Persistence.GetInstance();
+            if (persistence.Exists())
+                database = persistence.Load<List<PlayerData>>();
+            else
+                database = new List<PlayerData>();
+
+            mPlayer = database.Find(x => x.Name == name);
+            if (mPlayer == null)
+            {
+                mPlayer = new PlayerData(name);
+                database.Add(mPlayer);
+            }
+        }
+
         private void StartGame(object sender, EventArgs e)
         {
             if (mPlayer.Name == "")
@@ -111,10 +129,11 @@ namespace Tamagotchi
             MsgBlock.Text = "GAMEOVER";
             isPlaying = false;
             ButtonsEnabled(false);
+            mPlayer.Games += 1;
 
             GameoverWindow window = new GameoverWindow(this);
             window.TextName = mPlayer.Name;
-            window.TextScore = "";
+            window.TextScore = mPlayer.Score.ToString();
             window.Show();
         }
 
@@ -148,9 +167,11 @@ namespace Tamagotchi
             DiversificationBar.Value -= mStep * mDiversificationCoef;
             FoodBar.Value -= mStep * mFoodCoef;
 
+            mPlayer.Score += timer.Interval;
+
             if (EnergyBar.Value <= 0 || DiversificationBar.Value <= 0 || FoodBar.Value <= 0)
                 GameOver();
-            else if (mRnd.NextDouble() < 0.02)
+            else if (mRnd.NextDouble() < BONUS_CHANCE)
                 mBonuses.PushRandomCollecionable();
         }
 
@@ -187,7 +208,7 @@ namespace Tamagotchi
 
             mStep = Math.Min(20, mStep + 0.1);
 
-            if (mRnd.NextDouble() < 0.2)
+            if (mRnd.NextDouble() < DROP_CHANCE)
                 mCollecionables.PushRandomCollecionable();
         }
 
@@ -250,6 +271,11 @@ namespace Tamagotchi
         {
             DataObject data = new DataObject(sender as Image);
             DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
+        }
+
+        private void Win_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Persistence.GetInstance().Save(database);
         }
     }
 }

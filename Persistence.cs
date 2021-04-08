@@ -24,6 +24,11 @@ namespace Tamagotchi
             mPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\tamagotchi.xml";
         }
 
+        public bool Exists()
+        {
+            return System.IO.File.Exists(mPath);
+        }
+
         public T Load<T>()
         {
             T aux;
