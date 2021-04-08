@@ -27,17 +27,18 @@ namespace Tamagotchi
         private static double DROP_CHANCE = 0.1;
         private static double BONUS_CHANCE = 0.03;
 
-        private Random mRnd;
+        private Random rnd;
         private DispatcherTimer timer;
         private DispatcherTimer freezer;
 
-        private double mStep = 1;
+        private double step = 1;
         private double mEnergyCoef = 1;
         private double mDiversificationCoef = 1;
         private double mFoodCoef = 1;
 
-        private CollecionablesController mCollecionables;
-        private CollecionablesController mBonuses;
+        private CommentsFactory comments;
+        private CollecionablesController collecionables;
+        private CollecionablesController bonuses;
 
         private List<PlayerData> database;
         private PlayerData mPlayer;
@@ -51,12 +52,12 @@ namespace Tamagotchi
 
         public void Initialize()
         {
-            mRnd = new Random();
+            rnd = new Random();
             freezer = new DispatcherTimer();
             freezer.Interval = TimeSpan.FromSeconds(15);
             freezer.Tick += Freezer_Tick;
 
-            Collecionable[] collecionables = new Collecionable[] {
+            Collecionable[] collecionablesArr = new Collecionable[] {
                 new BackgroundCollecionable("media\\gdansk.jpg", ChangeBackground),
                 new BackgroundCollecionable("media\\hamburg.jpg", ChangeBackground),
                 new BackgroundCollecionable("media\\istanbul.jpg", ChangeBackground),
@@ -65,7 +66,7 @@ namespace Tamagotchi
                 new DraggableCollecionable("media\\c2.png", DragCollecionable_Down),
                 new DraggableCollecionable("media\\c3.png", DragCollecionable_Down)
             };
-            Collecionable[] bonuses = {
+            Collecionable[] bonusesArr = {
                 new ItemCollecionable("media\\icons8-double-right.png",
                                 ItemCollecionable.TYPES.REFILL,
                                 Item_Click),
@@ -88,8 +89,8 @@ namespace Tamagotchi
                                 ItemCollecionable.TYPES.FREEZE_FOOD,
                                 Item_Click)
             };
-            mCollecionables = new CollecionablesController(StackCollecionables, collecionables);
-            mBonuses = new CollecionablesController(StackRewards, bonuses);
+            collecionables = new CollecionablesController(StackCollecionables, collecionablesArr);
+            bonuses = new CollecionablesController(StackRewards, bonusesArr);
 
             WelcomeWindow window = new WelcomeWindow(this);
             Visibility = Visibility.Hidden;
@@ -126,6 +127,7 @@ namespace Tamagotchi
                 timer.Tick += Timer_Tick;
                 timer.Start();
                 MsgBlock.Text = "Bienvenido " + mPlayer.Name;
+                isPlaying = true;
                 ButtonsEnabled(true);
             }
         }
@@ -170,16 +172,16 @@ namespace Tamagotchi
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            EnergyBar.Value -= mStep * mEnergyCoef;
-            DiversificationBar.Value -= mStep * mDiversificationCoef;
-            FoodBar.Value -= mStep * mFoodCoef;
+            EnergyBar.Value -= step * mEnergyCoef;
+            DiversificationBar.Value -= step * mDiversificationCoef;
+            FoodBar.Value -= step * mFoodCoef;
 
             mPlayer.Score += timer.Interval;
 
             if (EnergyBar.Value <= 0 || DiversificationBar.Value <= 0 || FoodBar.Value <= 0)
                 GameOver();
-            else if (mRnd.NextDouble() < BONUS_CHANCE)
-                mBonuses.PushRandomCollecionable();
+            else if (rnd.NextDouble() < BONUS_CHANCE)
+                bonuses.PushRandomCollecionable();
         }
 
         private void Freezer_Tick(object sender, EventArgs e)
@@ -211,12 +213,12 @@ namespace Tamagotchi
             }
 
             if (bar != null)
-                bar.Value = Math.Min(100, bar.Value + mRnd.Next(9,15));
+                bar.Value = Math.Min(100, bar.Value + rnd.Next(9,15));
 
-            mStep = Math.Min(20, mStep + 0.1);
+            step = Math.Min(20, step + 0.1);
 
-            if (mRnd.NextDouble() < DROP_CHANCE)
-                mCollecionables.PushRandomCollecionable();
+            if (rnd.NextDouble() < DROP_CHANCE)
+                collecionables.PushRandomCollecionable();
         }
 
         private void About_Click(object sender, MouseButtonEventArgs e)
