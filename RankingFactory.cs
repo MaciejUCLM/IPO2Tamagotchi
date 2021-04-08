@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Tamagotchi
 {
@@ -14,11 +15,11 @@ namespace Tamagotchi
         {
             panel.Children.Clear();
             data.Sort((a,b) => b.BestScore.Seconds - a.BestScore.Seconds);
-            foreach (var x in data)
-                panel.Children.Add(GetEntry(x));
+            for (int i = 0; i < data.Count; i++)
+                panel.Children.Add(GetEntry(data[i], string.Format("{0}. ", i+1)));
         }
 
-        public static Grid GetEntry(PlayerData data)
+        public static Grid GetEntry(PlayerData data, string prefix="")
         {
             Grid grid = new Grid();
             grid.HorizontalAlignment = HorizontalAlignment.Stretch;
@@ -28,12 +29,16 @@ namespace Tamagotchi
             grid.RowDefinitions.Add(new RowDefinition());
 
             Label title = new Label();
-            title.Content = data.Name;
+            title.Content = prefix + data.Name;
+            title.Foreground = Brushes.White;
+            title.FontSize = 15;
             Grid.SetRow(title, 0);
             Grid.SetColumn(title, 0);
 
             Label score = new Label();
             score.Content = data.BestScore.ToString();
+            score.Foreground = Brushes.White;
+            score.FontSize = 16;
             score.HorizontalAlignment = HorizontalAlignment.Right;
             Grid.SetRow(score, 0);
             Grid.SetColumn(score, 1);

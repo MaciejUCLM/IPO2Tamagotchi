@@ -46,6 +46,11 @@ namespace Tamagotchi
         public MainWindow()
         {
             InitializeComponent();
+            Initialize();
+        }
+
+        public void Initialize()
+        {
             mRnd = new Random();
             freezer = new DispatcherTimer();
             freezer.Interval = TimeSpan.FromSeconds(15);

@@ -19,6 +19,7 @@ namespace Tamagotchi
     /// </summary>
     public partial class GameoverWindow : Window
     {
+        private bool restart = false;
         private MainWindow mOwner;
 
         public string TextScore { get => labelScore.Content as string; set => labelScore.Content = value; }
@@ -32,7 +33,21 @@ namespace Tamagotchi
 
         private void Win_Closed(object sender, EventArgs e)
         {
-            mOwner.Close();
+            if (restart)
+                mOwner.Initialize();
+            else
+                mOwner.Close();
+        }
+
+        private void Salir_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Restart_Click(object sender, RoutedEventArgs e)
+        {
+            restart = true;
+            Close();
         }
     }
 }
