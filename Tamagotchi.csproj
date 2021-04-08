@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Achievement.cs" />
     <Compile Include="BackgroundCollecionable.cs" />
+    <Compile Include="Persistence.cs" />
     <Compile Include="Collecionable.cs" />
     <Compile Include="CollecionablesController.cs" />
     <Compile Include="CommentsFactory.cs" />

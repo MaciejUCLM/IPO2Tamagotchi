@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Tamagotchi
 {
     [Serializable]
-    class PlayerData
+    public class PlayerData
     {
         private string mName;
         private TimeSpan mScore;
@@ -28,12 +28,18 @@ namespace Tamagotchi
         public TimeSpan BestScore { get => mBestScore; set => mBestScore = value; }
         public List<Achievement> Achievements { get => mAchievements; }
 
-        public PlayerData(string name, TimeSpan bestScore)
+        public PlayerData()
+        {
+            mName = "";
+            mScore = TimeSpan.Zero;
+            mBestScore = TimeSpan.Zero;
+            mAchievements = new List<Achievement>();
+        }
+
+        public PlayerData(string name, TimeSpan bestScore) : this()
         {
             mName = name;
-            mScore = TimeSpan.Zero;
             mBestScore = bestScore;
-            mAchievements = new List<Achievement>();
         }
     }
 }

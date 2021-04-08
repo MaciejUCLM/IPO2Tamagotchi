@@ -11,13 +11,17 @@ using System.Windows.Media.Imaging;
 namespace Tamagotchi
 {
     [Serializable]
-    class Achievement
+    public class Achievement
     {
         private string mDescription;
         private string mSource;
 
-        public string Source { get => mSource; }
-        public string Descritpion { get => mDescription; }
+        public string Source { get => mSource; set => mSource = value; }
+        public string Descritpion { get => mDescription; set => mDescription = value; }
+
+        public Achievement()
+        {
+        }
 
         public Achievement(string src, string description)
         {
