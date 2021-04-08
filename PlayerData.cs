@@ -29,15 +29,15 @@ namespace Tamagotchi
                     mBestScore = mScore;
             }
         }
-        public TimeSpan BestScore { get => mBestScore; set => mBestScore = value; }
+        public TimeSpan BestScore { get => mBestScore; }
         public List<Achievement> Achievements { get => mAchievements; }
 
         public PlayerData()
         {
             mGames = 0;
             mName = "";
+            mBestScore = TimeSpan.Zero;
             Score = TimeSpan.Zero;
-            BestScore = TimeSpan.Zero;
             mAchievements = new List<Achievement>();
         }
 

@@ -106,6 +106,8 @@ namespace Tamagotchi
                 mPlayer = new PlayerData(name);
                 database.Add(mPlayer);
             }
+
+            RankingFactory.PopulateRanking(StackRanking, database);
         }
 
         private void StartGame(object sender, EventArgs e)
