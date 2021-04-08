@@ -91,6 +91,7 @@ namespace Tamagotchi
             };
             collecionables = new CollecionablesController(StackCollecionables, collecionablesArr);
             bonuses = new CollecionablesController(StackRewards, bonusesArr);
+            comments = new CommentsFactory();
 
             WelcomeWindow window = new WelcomeWindow(this);
             Visibility = Visibility.Hidden;
@@ -181,7 +182,10 @@ namespace Tamagotchi
             if (EnergyBar.Value <= 0 || DiversificationBar.Value <= 0 || FoodBar.Value <= 0)
                 GameOver();
             else if (rnd.NextDouble() < BONUS_CHANCE)
+            {
+                MsgBlock.Text = comments.GetComment(CommentsFactory.TYPES.BONUS);
                 bonuses.PushRandomCollecionable();
+            }
         }
 
         private void Freezer_Tick(object sender, EventArgs e)
@@ -199,16 +203,19 @@ namespace Tamagotchi
             if (sender == DescansarBtn)
             {
                 bar = EnergyBar;
+                MsgBlock.Text = comments.GetComment(CommentsFactory.TYPES.SLEEPING);
                 BeginStoryboard("sleeping");
             }
             else if (sender == AlimentarBtn)
             {
                 bar = FoodBar;
+                MsgBlock.Text = comments.GetComment(CommentsFactory.TYPES.EATING);
                 BeginStoryboard("eating");
             }
             else if (sender == JugarBtn)
             {
                 bar = DiversificationBar;
+                MsgBlock.Text = comments.GetComment(CommentsFactory.TYPES.PLAYING);
                 BeginStoryboard("playing");
             }
 
@@ -218,7 +225,10 @@ namespace Tamagotchi
             step = Math.Min(20, step + 0.1);
 
             if (rnd.NextDouble() < DROP_CHANCE)
+            {
+                MsgBlock.Text = comments.GetComment(CommentsFactory.TYPES.COLLECIONABLE);
                 collecionables.PushRandomCollecionable();
+            }
         }
 
         private void About_Click(object sender, MouseButtonEventArgs e)

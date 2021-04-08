@@ -12,17 +12,19 @@ namespace Tamagotchi
         {
             EATING,
             PLAYING,
-            SLEEPING
+            SLEEPING,
+            ACHIEVEMENT,
+            COLLECIONABLE,
+            BONUS
         }
 
-        private static string[] COMMENTS_EATING = {
-            "Mmmm, que rica!", "Me gusta comer", "Tamagotchi está comiendo!"
-        };
-        private static string[] COMMENTS_PLAYING = {
-            "Yaaaay!", "Bailando!", "Subeme la radio!", "Tamagotchi está jugando!"
-        };
-        private static string[] COMMENTS_SLEEPING = {
-            "zzz", "Tamagotchi ahora se siente más descansado"
+        private static Dictionary<TYPES, string[]> COMMENTS = new Dictionary<TYPES, string[]>() {
+            { TYPES.EATING, new string[] { "Mmmm, que rica comida!", "Me gusta comer", "Tamagotchi está comiendo!" } },
+            { TYPES.PLAYING, new string[] { "Yaaaay!", "Bailando!", "Subeme la radio!", "Tamagotchi está jugando!" } },
+            { TYPES.SLEEPING, new string[] { "zzz", "Tamagotchi ahora se siente más descansado" } },
+            { TYPES.ACHIEVEMENT, new string[] { "Logro nuevo conseguido!" } },
+            { TYPES.COLLECIONABLE, new string[] { "Coleccionable nuevo conseguido!" } }
+            { TYPES.BONUS, new string[] { "Premio nuevo conseguido!" } }
         };
 
         private Random mRnd;
@@ -34,13 +36,7 @@ namespace Tamagotchi
 
         public string GetComment(TYPES type)
         {
-            string[] set;
-            if (type == TYPES.EATING)
-                set = COMMENTS_EATING;
-            else if (type == TYPES.SLEEPING)
-                set = COMMENTS_SLEEPING;
-            else
-                set = COMMENTS_PLAYING;
+            string[] set = COMMENTS[type];
             return set[mRnd.Next(0, set.Length)];
         }
     }
