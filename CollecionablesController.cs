@@ -9,13 +9,13 @@ using System.Windows.Input;
 
 namespace Tamagotchi
 {
-    class CollecionablesFactory
+    class CollecionablesController
     {
         private List<Collecionable> mItems;
         private Random mRnd;
-        private WrapPanel mPanel;
+        private Panel mPanel;
 
-        public CollecionablesFactory(WrapPanel target, Collecionable[] collecionables)
+        public CollecionablesController(Panel target, Collecionable[] collecionables)
         {
             mRnd = new Random();
             mPanel = target;

@@ -253,8 +253,8 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="4*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Image x:Name="BackgroundImage" Grid.ColumnSpan="4" Margin="0" Grid.Row="3" Grid.RowSpan="3" Source="media/background.jpg" Stretch="Fill"/>
@@ -395,14 +395,14 @@
         <Label Content="Premios" HorizontalAlignment="Left" Margin="0" Grid.Row="4" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Coleccionables" Grid.Column="3" HorizontalAlignment="Left" Margin="0" Grid.Row="3" VerticalAlignment="Top" Foreground="White"/>
         <Label Content="Ranking" Grid.Column="3" HorizontalAlignment="Left" Margin="0" Grid.Row="4" VerticalAlignment="Top" Foreground="White"/>
-        <ScrollViewer Margin="5,30,5,5" Grid.Row="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <WrapPanel x:Name="StackAchievements" Background="#7FA80000" />
+        <ScrollViewer Margin="5,30,5,5" Grid.Row="3" VerticalScrollBarVisibility="Auto">
+            <UniformGrid x:Name="StackAchievements" Background="#7FA80000" Columns="5" />
         </ScrollViewer>
         <ScrollViewer Margin="5,30,5,5" Grid.Row="4" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto">
-            <WrapPanel x:Name="StackRewards" Background="#7F071281" />
+            <UniformGrid x:Name="StackRewards" Background="#7F071281" Columns="5" />
         </ScrollViewer>
-        <ScrollViewer Margin="5,30,5,5" Grid.Row="3" Grid.Column="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <WrapPanel x:Name="StackCollecionables" Background="#7F009E0E" />
+        <ScrollViewer Margin="5,30,5,5" Grid.Row="3" Grid.Column="3" VerticalScrollBarVisibility="Auto">
+            <UniformGrid x:Name="StackCollecionables" Background="#7F009E0E" Columns="5" />
         </ScrollViewer>
         <ScrollViewer Margin="5,30,5,5" Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="StackRanking" Background="#7F6F007A" />
@@ -410,9 +410,9 @@
         <Label Content="Energia" Grid.Column="1" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Center" Foreground="White"/>
         <Label Content="Diversion" Grid.Column="1" HorizontalAlignment="Right" Margin="0" Grid.Row="1" VerticalAlignment="Center" Foreground="White"/>
         <Label Content="Alimento" Grid.Column="1" HorizontalAlignment="Right" Margin="0" Grid.Row="2" VerticalAlignment="Center" Foreground="White"/>
-        <Button x:Name="DescansarBtn" Content="Descansar" Grid.Column="3" Margin="10" Click="PlayBtn_Click" Background="#FF0A54AE" Foreground="White"/>
-        <Button x:Name="JugarBtn" Content="Jugar" Grid.Column="3" Margin="10" Grid.Row="1" Click="PlayBtn_Click" Background="#FFCF2121" Foreground="White"/>
-        <Button x:Name="AlimentarBtn" Content="Alimentar" Grid.Column="3" Margin="10" Grid.Row="2" Click="PlayBtn_Click" Background="#FF16BB34" Foreground="White"/>
+        <Button x:Name="DescansarBtn" Content="Descansar" Grid.Column="3" Margin="5" Click="PlayBtn_Click" Background="#FF0A54AE" Foreground="White"/>
+        <Button x:Name="JugarBtn" Content="Jugar" Grid.Column="3" Margin="5" Grid.Row="1" Click="PlayBtn_Click" Background="#FFCF2121" Foreground="White"/>
+        <Button x:Name="AlimentarBtn" Content="Alimentar" Grid.Column="3" Margin="5" Grid.Row="2" Click="PlayBtn_Click" Background="#FF16BB34" Foreground="White"/>
         <TextBlock x:Name="MsgBlock" TextWrapping="Wrap" Text="Bienvenido" Grid.Column="1" Margin="9,8,0,0" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="#7F000000" FontSize="16" IsEnabled="False"/>
         <ProgressBar x:Name="EnergyBar" Grid.Column="2" Margin="5" Value="100" Foreground="#FF060EB0"/>
         <ProgressBar x:Name="DiversificationBar" Grid.Column="2" Grid.Row="1" Margin="5" Value="100" Foreground="#FFC31E1E"/>

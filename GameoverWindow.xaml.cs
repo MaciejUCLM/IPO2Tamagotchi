@@ -21,6 +21,9 @@ namespace Tamagotchi
     {
         private MainWindow mOwner;
 
+        public string TextScore { get => labelScore.Content as string; set => labelScore.Content = value; }
+        public string TextName { get => labelName.Content as string; set => labelName.Content = value; }
+
         public GameoverWindow(MainWindow owner)
         {
             InitializeComponent();

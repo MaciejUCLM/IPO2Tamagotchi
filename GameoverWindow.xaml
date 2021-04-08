@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tamagotchi"
         mc:Ignorable="d"
-        Title="Tamagotchi Game Over" Height="400" Width="600" ResizeMode="NoResize" Closed="Win_Closed">
+        Title="Tamagotchi Game Over" Height="400" Width="600" ResizeMode="NoResize" Closed="Win_Closed" Topmost="True">
     <Grid>
         <Button Content="De nuevo" HorizontalAlignment="Center" Margin="0,283,200,0" VerticalAlignment="Top" Width="100" Height="50"/>
         <Button Content="Salir" HorizontalAlignment="Center" Margin="200,283,0,0" VerticalAlignment="Top" Width="100" Height="50"/>

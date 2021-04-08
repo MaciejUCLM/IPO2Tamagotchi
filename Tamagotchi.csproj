@@ -57,7 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="BackgroundCollecionable.cs" />
     <Compile Include="Collecionable.cs" />
-    <Compile Include="CollecionablesFactory.cs" />
+    <Compile Include="CollecionablesController.cs" />
     <Compile Include="CommentsFactory.cs" />
     <Compile Include="DraggableCollecionable.cs" />
     <Compile Include="GameoverWindow.xaml.cs">

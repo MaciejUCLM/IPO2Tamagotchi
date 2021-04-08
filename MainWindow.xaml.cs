@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -32,8 +33,8 @@ namespace Tamagotchi
         private double mDiversificationCoef = 1;
         private double mFoodCoef = 1;
 
-        private CollecionablesFactory mCollecionables;
-        private CollecionablesFactory mBonuses;
+        private CollecionablesController mCollecionables;
+        private CollecionablesController mBonuses;
 
         private string mName;
         private bool isPlaying = true;
@@ -80,8 +81,8 @@ namespace Tamagotchi
                                 ItemCollecionable.TYPES.FREEZE_FOOD,
                                 Item_Click)
             };
-            mCollecionables = new CollecionablesFactory(StackCollecionables, collecionables);
-            mBonuses = new CollecionablesFactory(StackRewards, bonuses);
+            mCollecionables = new CollecionablesController(StackCollecionables, collecionables);
+            mBonuses = new CollecionablesController(StackRewards, bonuses);
 
             WelcomeWindow window = new WelcomeWindow(this);
             Visibility = Visibility.Hidden;
@@ -106,9 +107,15 @@ namespace Tamagotchi
 
         private void GameOver()
         {
+            timer.Stop();
             MsgBlock.Text = "GAMEOVER";
             isPlaying = false;
             ButtonsEnabled(false);
+
+            GameoverWindow window = new GameoverWindow(this);
+            window.TextName = mName;
+            window.TextScore = "";
+            window.Show();
         }
 
         private void ChangeBackground(object sender, MouseButtonEventArgs e)

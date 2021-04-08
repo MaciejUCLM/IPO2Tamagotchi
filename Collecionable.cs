@@ -39,7 +39,6 @@ namespace Tamagotchi
 
         private void InitializeImage(string src, string tooltip)
         {
-            this.Width = 60;
             this.Stretch = Stretch.Uniform;
             this.HorizontalAlignment = HorizontalAlignment.Center;
             this.VerticalAlignment = VerticalAlignment.Center;
