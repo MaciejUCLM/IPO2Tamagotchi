@@ -11,25 +11,25 @@ namespace Tamagotchi
     {
         private int mGames;
         private string mName;
-        private long mScore;
-        private long mBestScore;
+        private TimeSpan mScore;
+        private TimeSpan mBestScore;
         private List<Achievement> mAchievements;
 
         public int Games { get => mGames; set => mGames = value; }
         public string Name { get => mName; set => mName = value; }
-        public long ScoreTicks { get => mScore; set => mScore = value; }
-        public long BestScoreTicks { get => mBestScore; set => mBestScore = value; }
+        public long ScoreTicks { get => mScore.Ticks; set => mScore = TimeSpan.FromTicks(value); }
+        public long BestScoreTicks { get => mBestScore.Ticks; set => mBestScore = TimeSpan.FromTicks(value); }
         public TimeSpan Score
         {
-            get => TimeSpan.FromTicks(mScore);
+            get => mScore;
             set
             {
-                mScore = value.Ticks;
+                mScore = value;
                 if (mScore > mBestScore)
                     mBestScore = mScore;
             }
         }
-        public TimeSpan BestScore { get => TimeSpan.FromTicks(mBestScore); set => mBestScore = value.Ticks; }
+        public TimeSpan BestScore { get => mBestScore; set => mBestScore = value; }
         public List<Achievement> Achievements { get => mAchievements; }
 
         public PlayerData()
