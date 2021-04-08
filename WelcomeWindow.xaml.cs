@@ -38,5 +38,11 @@ namespace Tamagotchi
             mOwner.SetName(nameBox.Text);
             mOwner.Visibility = Visibility.Visible;
         }
+
+        private void Win_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                empezar_Click(sender, e);
+        }
     }
 }

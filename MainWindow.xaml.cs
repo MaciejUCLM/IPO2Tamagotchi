@@ -135,6 +135,7 @@ namespace Tamagotchi
 
         private void GameOver()
         {
+            freezer.Stop();
             timer.Stop();
             MsgBlock.Text = "GAMEOVER";
             isPlaying = false;
@@ -149,7 +150,7 @@ namespace Tamagotchi
 
         private void ChangeBackground(object sender, MouseButtonEventArgs e)
         {
-            Image image = ((Image)sender);
+            Image image = (Image)sender;
             ImageSource source = BackgroundImage.Source;
             BackgroundImage.Source = image.Source;
             image.Source = source;
@@ -167,8 +168,9 @@ namespace Tamagotchi
         {
             if (!isPlaying)
                 enabled = false;
-            foreach (Button x in new Button[] { DescansarBtn, AlimentarBtn, JugarBtn })
-                x.IsEnabled = enabled;
+            DescansarBtn.IsEnabled = enabled;
+            AlimentarBtn.IsEnabled = enabled;
+            JugarBtn.IsEnabled = enabled;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
