@@ -23,7 +23,7 @@ namespace Tamagotchi
             { TYPES.PLAYING, new string[] { "Yaaaay!", "Bailando!", "Subeme la radio!", "Tamagotchi está jugando!" } },
             { TYPES.SLEEPING, new string[] { "zzz", "Tamagotchi ahora se siente más descansado" } },
             { TYPES.ACHIEVEMENT, new string[] { "Logro nuevo conseguido!" } },
-            { TYPES.COLLECIONABLE, new string[] { "Coleccionable nuevo conseguido!" } }
+            { TYPES.COLLECIONABLE, new string[] { "Coleccionable nuevo conseguido!" } },
             { TYPES.BONUS, new string[] { "Premio nuevo conseguido!" } }
         };
 

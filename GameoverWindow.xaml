@@ -7,11 +7,14 @@
         mc:Ignorable="d"
         Title="Tamagotchi Game Over" Height="400" Width="600" ResizeMode="NoResize" Closed="Win_Closed" Topmost="True">
     <Grid>
-        <Button Content="De nuevo" HorizontalAlignment="Center" Margin="0,283,200,0" VerticalAlignment="Top" Width="100" Height="50" Click="Restart_Click"/>
-        <Button Content="Salir" HorizontalAlignment="Center" Margin="200,283,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="Salir_Click"/>
-        <Label Content="GAME OVER" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontFamily="Rubik" FontSize="36"/>
-        <Label x:Name="labelName" Content="name" HorizontalAlignment="Center" Margin="0,131,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Label x:Name="labelScore" Content="score" HorizontalAlignment="Center" Margin="0,196,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Grid.Background>
+            <ImageBrush Stretch="Uniform" ImageSource="media/c1.png"/>
+        </Grid.Background>
+        <Button Content="De nuevo" HorizontalAlignment="Center" Margin="0,283,200,0" VerticalAlignment="Top" Width="100" Height="50" Click="Restart_Click" Background="#99DDDDDD" FontWeight="Bold"/>
+        <Button Content="Salir" HorizontalAlignment="Center" Margin="200,283,0,0" VerticalAlignment="Top" Width="100" Height="50" Click="Salir_Click" Background="#99DDDDDD" FontWeight="Bold"/>
+        <Label Content="GAME OVER" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontFamily="Rubik" FontSize="36" Background="#4CFFFFFF"/>
+        <Label x:Name="labelName" Content="name" HorizontalAlignment="Center" Margin="0,131,0,0" VerticalAlignment="Top" FontSize="16" Background="#99FFFFFF"/>
+        <Label x:Name="labelScore" Content="score" HorizontalAlignment="Center" Margin="0,196,0,0" VerticalAlignment="Top" FontSize="18" Background="#99FFFFFF"/>
 
     </Grid>
 </Window>

@@ -8,15 +8,12 @@
         Title="Tamagotchi Empezar" Height="300" Width="500" ResizeMode="NoResize" Topmost="True" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Closed="Win_Closed">
     <Grid>
         <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="#FFBB1D1D" Offset="0"/>
-                <GradientStop Color="#FFDE5FD9" Offset="1"/>
-            </RadialGradientBrush>
+            <ImageBrush Stretch="UniformToFill" ImageSource="media/background.jpg"/>
         </Grid.Background>
-        <Label Content="Tamagotchi!" HorizontalAlignment="Center" Margin="0,0,0,100" VerticalAlignment="Center" FontSize="48"/>
-        <Label Content="Nombre del Tamagotchi" HorizontalAlignment="Left" Margin="126,160,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Tamagotchi!" HorizontalAlignment="Center" Margin="0,0,0,100" VerticalAlignment="Center" FontSize="48" Background="{x:Null}" Foreground="White"/>
+        <Label Content="Nombre del Tamagotchi" HorizontalAlignment="Left" Margin="126,160,0,0" VerticalAlignment="Top" FontSize="16" Foreground="White"/>
         <TextBox x:Name="nameBox" HorizontalAlignment="Center" Height="23" Margin="120,140,120,100" TextWrapping="Wrap" VerticalAlignment="Center" Width="229"/>
-        <Button Content="Empezar" HorizontalAlignment="Center" Margin="210,212,210,22" VerticalAlignment="Center" Width="74" Click="empezar_Click" Height="37"/>
+        <Button Content="Empezar" HorizontalAlignment="Center" Margin="210,212,210,22" VerticalAlignment="Center" Width="74" Click="empezar_Click" Height="37" Background="#4CDDDDDD" Foreground="White" FontWeight="Bold" FontSize="14"/>
 
     </Grid>
 </Window>
