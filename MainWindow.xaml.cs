@@ -36,10 +36,10 @@ namespace Tamagotchi
         private CollecionablesController mCollecionables;
         private CollecionablesController mBonuses;
 
-        private string mName;
+        private PlayerData mPlayer;
         private bool isPlaying = true;
 
-        public void SetName(string name) => mName = name;
+        public void SetName(string name) => mPlayer = new PlayerData(name, TimeSpan.Zero);
 
         public MainWindow()
         {
@@ -92,7 +92,7 @@ namespace Tamagotchi
 
         private void StartGame(object sender, EventArgs e)
         {
-            if (mName == "")
+            if (mPlayer.Name == "")
                 Close();
             else
             {
@@ -100,7 +100,7 @@ namespace Tamagotchi
                 timer.Interval = TimeSpan.FromMilliseconds(1000);
                 timer.Tick += Timer_Tick;
                 timer.Start();
-                MsgBlock.Text = "Bienvenido " + mName;
+                MsgBlock.Text = "Bienvenido " + mPlayer.Name;
                 ButtonsEnabled(true);
             }
         }
@@ -113,7 +113,7 @@ namespace Tamagotchi
             ButtonsEnabled(false);
 
             GameoverWindow window = new GameoverWindow(this);
-            window.TextName = mName;
+            window.TextName = mPlayer.Name;
             window.TextScore = "";
             window.Show();
         }
