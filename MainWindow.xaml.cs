@@ -58,7 +58,7 @@ namespace Tamagotchi
             freezer.Interval = TimeSpan.FromSeconds(15);
             freezer.Tick += Freezer_Tick;
 
-            Collecionable[] collecionablesArr = new Collecionable[] {
+            collecionables = new CollecionablesController(StackCollecionables, new Collecionable[] {
                 new BackgroundCollecionable("media\\gdansk.jpg", ChangeBackground),
                 new BackgroundCollecionable("media\\hamburg.jpg", ChangeBackground),
                 new BackgroundCollecionable("media\\istanbul.jpg", ChangeBackground),
@@ -66,8 +66,8 @@ namespace Tamagotchi
                 new DraggableCollecionable("media\\c1.png", DragCollecionable_Down),
                 new DraggableCollecionable("media\\c2.png", DragCollecionable_Down),
                 new DraggableCollecionable("media\\c3.png", DragCollecionable_Down)
-            };
-            Collecionable[] bonusesArr = {
+            });
+            bonuses = new CollecionablesController(StackRewards, new Collecionable[] {
                 new ItemCollecionable("media\\icons8-double-right.png",
                                 ItemCollecionable.TYPES.REFILL,
                                 Item_Click),
@@ -89,9 +89,7 @@ namespace Tamagotchi
                 new ItemCollecionable("media\\icons8-skip-15-seconds-back.png",
                                 ItemCollecionable.TYPES.FREEZE_FOOD,
                                 Item_Click)
-            };
-            collecionables = new CollecionablesController(StackCollecionables, collecionablesArr);
-            bonuses = new CollecionablesController(StackRewards, bonusesArr);
+            });
             comments = new CommentsFactory();
 
             WelcomeWindow window = new WelcomeWindow(this);
@@ -117,7 +115,8 @@ namespace Tamagotchi
                 database.Add(mPlayer);
             }
 
-            achievements = new AchievementsController(StackAchievements, mPlayer);
+            achievements = new AchievementsController(StackAchievements, mPlayer, new Achievement[] {
+            });
         }
 
         private void CheckAchievements()
@@ -284,6 +283,12 @@ namespace Tamagotchi
             }
         }
 
+        private void DragCollecionable_Down(object sender)
+        {
+            DataObject data = new DataObject(sender as Image);
+            DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
+        }
+
         private void Hat_Click(object sender, MouseButtonEventArgs e)
         {
             imgHat.Visibility = Visibility.Hidden;
@@ -294,12 +299,6 @@ namespace Tamagotchi
             Image img = (Image)e.Data.GetData(typeof(DraggableCollecionable));
             imgHat.Source = img.Source;
             imgHat.Visibility = Visibility.Visible;
-        }
-
-        private void DragCollecionable_Down(object sender)
-        {
-            DataObject data = new DataObject(sender as Image);
-            DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
         }
 
         private void Win_Closing(object sender, System.ComponentModel.CancelEventArgs e)

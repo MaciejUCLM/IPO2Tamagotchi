@@ -9,13 +9,16 @@ namespace Tamagotchi
 {
     class AchievementsController
     {
+        private List<Achievement> mItems;
         private Panel mPanel;
         private PlayerData mPlayer;
 
-        public AchievementsController(Panel panel, PlayerData player)
+        public AchievementsController(Panel panel, PlayerData player, Achievement[] achievements)
         {
             mPanel = panel;
             mPlayer = player;
+            mItems = new List<Achievement>();
+            mItems.AddRange(achievements);
         }
 
         public void Refresh()
