@@ -9,14 +9,14 @@ namespace Tamagotchi
 {
     class DraggableCollecionable : Collecionable
     {
-        public DraggableCollecionable(string icon, MouseButtonEventHandler clickHandler)
+        public DraggableCollecionable(string icon, Action<object> clickHandler)
             : base(icon, "Arrestra a Tamagotchi para activar", clickHandler)
         {
         }
 
         public override Collecionable Copy()
         {
-            return new DraggableCollecionable(mPath, mHandler);
+            return new DraggableCollecionable(mPath, mAction);
         }
     }
 }

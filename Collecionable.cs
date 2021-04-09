@@ -14,25 +14,30 @@ namespace Tamagotchi
     abstract class Collecionable : Image
     {
         protected string mPath;
-        protected MouseButtonEventHandler mHandler;
+        protected Action<object> mAction;
 
         private bool mOneShot = true;
 
         public bool OneShot { get => mOneShot; set { mOneShot = value; } }
 
-        public Collecionable(string icon, string tooltip, MouseButtonEventHandler click, bool oneshot)
+        public Collecionable(string icon, string tooltip, Action<object> click, bool oneshot)
             : this(icon, tooltip, click)
         {
             mOneShot = oneshot;
         }
 
-        public Collecionable(string icon, string tooltip, MouseButtonEventHandler click)
+        public Collecionable(string icon, string tooltip, Action<object> click)
         {
-            mHandler = click;
+            mAction = click;
             mPath = icon;
             InitializeImage(icon, tooltip);
-            if (click != null)
-                this.MouseLeftButtonDown += click;
+            this.MouseLeftButtonDown += Collecionable_MouseLeftButtonDown;
+        }
+
+        private void Collecionable_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (mAction != null)
+                mAction.Invoke(sender);
         }
 
         public abstract Collecionable Copy();

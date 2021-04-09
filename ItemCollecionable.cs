@@ -34,7 +34,7 @@ namespace Tamagotchi
         
         public TYPES Type { get => mType; }
 
-        public ItemCollecionable(string icon, TYPES type, MouseButtonEventHandler clickHandler)
+        public ItemCollecionable(string icon, TYPES type, Action<object> clickHandler)
             : base(icon, tooltipPairs[type], clickHandler, false)
         {
             mType = type;
@@ -44,7 +44,7 @@ namespace Tamagotchi
 
         public override Collecionable Copy()
         {
-            return new ItemCollecionable(mPath, Type, mHandler);
+            return new ItemCollecionable(mPath, Type, mAction);
         }
     }
 }

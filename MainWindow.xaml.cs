@@ -106,6 +106,7 @@ namespace Tamagotchi
                 database = persistence.Load<List<PlayerData>>();
             else
                 database = new List<PlayerData>();
+            RankingFactory.PopulateRanking(StackRanking, database);
 
             mPlayer = database.Find(x => x.Name == name);
             if (mPlayer == null)
@@ -113,8 +114,11 @@ namespace Tamagotchi
                 mPlayer = new PlayerData(name);
                 database.Add(mPlayer);
             }
+        }
 
-            RankingFactory.PopulateRanking(StackRanking, database);
+        private void CheckAchievements()
+        {
+            //mPlayer.Games > 10
         }
 
         private void StartGame(object sender, EventArgs e)
@@ -146,14 +150,6 @@ namespace Tamagotchi
             window.TextName = mPlayer.Name;
             window.TextScore = mPlayer.Score.ToString();
             window.Show();
-        }
-
-        private void ChangeBackground(object sender, MouseButtonEventArgs e)
-        {
-            Image image = (Image)sender;
-            ImageSource source = BackgroundImage.Source;
-            BackgroundImage.Source = image.Source;
-            image.Source = source;
         }
 
         private void BeginStoryboard(string name)
@@ -235,13 +231,21 @@ namespace Tamagotchi
 
         private void About_Click(object sender, MouseButtonEventArgs e)
         {
-            MessageBoxResult res = MessageBox.Show("Programa realizado por MN GBStudio.\nDesea salir?",
+            MessageBoxResult res = MessageBox.Show("Programa realizado por Maciej Nalepa.\nDesea salir?",
                 "Acerca de Tamagotchi", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
                 this.Close();
         }
 
-        private void Item_Click(object sender, MouseButtonEventArgs e)
+        private void ChangeBackground(object sender)
+        {
+            Image image = (Image)sender;
+            ImageSource source = BackgroundImage.Source;
+            BackgroundImage.Source = image.Source;
+            image.Source = source;
+        }
+
+        private void Item_Click(object sender)
         {
             var item = sender as ItemCollecionable;
             StackRewards.Children.Remove(item);
@@ -288,7 +292,7 @@ namespace Tamagotchi
             imgHat.Visibility = Visibility.Visible;
         }
 
-        private void DragCollecionable_Down(object sender, MouseButtonEventArgs e)
+        private void DragCollecionable_Down(object sender)
         {
             DataObject data = new DataObject(sender as Image);
             DragDrop.DoDragDrop((Image)sender, data, DragDropEffects.Move);
