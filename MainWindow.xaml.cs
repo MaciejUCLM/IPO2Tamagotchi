@@ -45,6 +45,7 @@ namespace Tamagotchi
         private PlayerData mPlayer;
         private bool isPlaying = true;
 
+        public event EventHandler EventTick;
         public event EventHandler EventStart;
         public event EventHandler EventGameover;
         public event EventHandler EventCollecionable;
@@ -184,6 +185,7 @@ namespace Tamagotchi
 
             mPlayer.Score += timer.Interval;
 
+            EventTick?.Invoke(sender, e);
             if (EnergyBar.Value <= 0 || DiversificationBar.Value <= 0 || FoodBar.Value <= 0)
                 GameOver();
             else if (rnd.NextDouble() < BONUS_CHANCE)

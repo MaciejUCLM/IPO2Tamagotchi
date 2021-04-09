@@ -13,7 +13,13 @@ namespace Tamagotchi
         private string mName;
         private TimeSpan mScore;
         private TimeSpan mBestScore;
-        private List<Achievement> mAchievements;
+        private Achievement[] mAchievements = new Achievement[]
+        {
+            new Achievement("media\\icons8-trophy.png", "Jugar {0} partidas"),
+            new Achievement("media\\icons8-gift.png", "Conseguir {0} coleccionables"),
+            new Achievement("media\\icons8-medal.png", "Usar {0} premios"),
+            new Achievement("media\\icons8-prize.png", "Aguantar {0} minutos")
+        };
 
         public int Games { get => mGames; set => mGames = value; }
         public string Name { get => mName; set => mName = value; }
@@ -30,7 +36,7 @@ namespace Tamagotchi
             }
         }
         public TimeSpan BestScore { get => mBestScore; }
-        public List<Achievement> Achievements { get => mAchievements; }
+        public Achievement[] Achievements { get => mAchievements; set => mAchievements = value; }
 
         public PlayerData()
         {
@@ -38,7 +44,6 @@ namespace Tamagotchi
             mName = "";
             mBestScore = TimeSpan.Zero;
             Score = TimeSpan.Zero;
-            mAchievements = new List<Achievement>();
         }
 
         public PlayerData(string name) : this()

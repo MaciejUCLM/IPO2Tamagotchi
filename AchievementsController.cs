@@ -9,6 +9,8 @@ namespace Tamagotchi
 {
     class AchievementsController
     {
+        private int gameMinutes = 0;
+
         private Panel mPanel;
         private PlayerData mPlayer;
 
@@ -21,32 +23,34 @@ namespace Tamagotchi
         public void Setup(MainWindow owner)
         {
             owner.EventStart += (s, e) => {
-                Add(new Achievement("media\\icons8-trophy.png", "Jugar {0} partidas").Obtain());
+                Add(mPlayer.Achievements[0].Obtain());
             };
             owner.EventCollecionable += (s, e) => {
-                Add(new Achievement("media\\icons8-gift.png", "Conseguir {0} coleccionables").Obtain());
+                Add(mPlayer.Achievements[1].Obtain());
             };
             owner.EventBonusUsed += (s, e) => {
-                Add(new Achievement("media\\icons8-medal.png", "Usar {0} premios").Obtain());
+                Add(mPlayer.Achievements[2].Obtain());
             };
-            //new Achievement("media\\icons8-prize.png", "").Obtain()
+            owner.EventTick += (s, e) => {
+                if (mPlayer.Score.Minutes > gameMinutes)
+                {
+                    gameMinutes = mPlayer.Score.Minutes;
+                    Add(mPlayer.Achievements[3].Obtain());
+                }
+            };
         }
 
         public void Refresh()
         {
             mPanel.Children.Clear();
-            foreach (Achievement a in mPlayer.Achievements)
+            foreach (Achievement a in mPlayer.Achievements.Where(x => x.Level > 0))
                 mPanel.Children.Add(a.GetImage());
         }
 
         public void Add(Achievement a)
         {
             if (a != null)
-            {
-                if (a.Level < 2)
-                    mPlayer.Achievements.Add(a);
                 mPanel.Children.Add(a.GetImage());
-            }
         }
     }
 }
