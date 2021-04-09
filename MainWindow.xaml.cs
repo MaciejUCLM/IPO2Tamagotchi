@@ -106,6 +106,7 @@ namespace Tamagotchi
                 database = persistence.Load<List<PlayerData>>();
             else
                 database = new List<PlayerData>();
+            database.RemoveAll(x => x.Name == "");
             RankingFactory.PopulateRanking(StackRanking, database);
 
             mPlayer = database.Find(x => x.Name == name);
