@@ -56,7 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Achievement.cs" />
-    <Compile Include="AchievementsFactory.cs" />
+    <Compile Include="AchievementsController.cs" />
     <Compile Include="BackgroundCollecionable.cs" />
     <Compile Include="Persistence.cs" />
     <Compile Include="Collecionable.cs" />

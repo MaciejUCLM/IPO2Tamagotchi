@@ -13,20 +13,38 @@ namespace Tamagotchi
     [Serializable]
     public class Achievement
     {
+        public delegate bool dIsObtained();
+
+        private dIsObtained isObtained;
         private string mDescription;
         private string mSource;
+        private int mLevel;
 
         public string Source { get => mSource; set => mSource = value; }
         public string Descritpion { get => mDescription; set => mDescription = value; }
+        public int Level { get => mLevel; set => mLevel = value; }
 
         public Achievement()
         {
         }
 
-        public Achievement(string src, string description)
+        public Achievement(string src, string description, dIsObtained obtained)
         {
+            isObtained = obtained;
             mDescription = description;
             mSource = src;
+            mLevel = 0;
+        }
+
+        public Achievement Obtain()
+        {
+            if (isObtained.Invoke())
+            {
+                Level += 1;
+                return this;
+            }
+            else
+                return null;
         }
 
         public Image GetImage()

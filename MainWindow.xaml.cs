@@ -36,6 +36,7 @@ namespace Tamagotchi
         private double mDiversificationCoef = 1;
         private double mFoodCoef = 1;
 
+        private AchievementsController achievements;
         private CommentsFactory comments;
         private CollecionablesController collecionables;
         private CollecionablesController bonuses;
@@ -115,6 +116,8 @@ namespace Tamagotchi
                 mPlayer = new PlayerData(name);
                 database.Add(mPlayer);
             }
+
+            achievements = new AchievementsController(StackAchievements, mPlayer);
         }
 
         private void CheckAchievements()
