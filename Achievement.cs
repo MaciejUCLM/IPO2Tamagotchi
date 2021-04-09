@@ -13,9 +13,6 @@ namespace Tamagotchi
     [Serializable]
     public class Achievement
     {
-        public delegate bool dIsObtained();
-
-        private dIsObtained isObtained;
         private string mDescription;
         private string mSource;
         private int mLevel;
@@ -28,9 +25,8 @@ namespace Tamagotchi
         {
         }
 
-        public Achievement(string src, string description, dIsObtained obtained)
+        public Achievement(string src, string description)
         {
-            isObtained = obtained;
             mDescription = description;
             mSource = src;
             mLevel = 0;
@@ -38,13 +34,8 @@ namespace Tamagotchi
 
         public Achievement Obtain()
         {
-            if (isObtained.Invoke())
-            {
-                Level += 1;
-                return this;
-            }
-            else
-                return null;
+            Level += 1;
+            return this;
         }
 
         public Image GetImage()
@@ -54,7 +45,7 @@ namespace Tamagotchi
             img.HorizontalAlignment = HorizontalAlignment.Center;
             img.VerticalAlignment = VerticalAlignment.Center;
             img.Source = GetImageFromUri(Source);
-            img.ToolTip = Descritpion;
+            img.ToolTip = string.Format(Descritpion, Level);
             return img;
         }
 

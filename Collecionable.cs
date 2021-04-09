@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace Tamagotchi
 {
-    abstract class Collecionable : Image
+    public abstract class Collecionable : Image
     {
         protected string mPath;
         protected Action<object> mAction;

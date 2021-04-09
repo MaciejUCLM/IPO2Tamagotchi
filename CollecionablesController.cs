@@ -28,7 +28,7 @@ namespace Tamagotchi
             mPanel.Children.Add(elem);
         }
 
-        public void PushRandomCollecionable()
+        public Collecionable PushRandomCollecionable()
         {
             if (mItems.Count > 0)
             {
@@ -38,7 +38,9 @@ namespace Tamagotchi
                 if (!c.OneShot)
                     mItems.Add(c.Copy());
                 Add(c);
+                return c;
             }
+            return null;
         }
     }
 }

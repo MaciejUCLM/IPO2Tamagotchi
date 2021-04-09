@@ -58,6 +58,7 @@
     <Compile Include="Achievement.cs" />
     <Compile Include="AchievementsController.cs" />
     <Compile Include="BackgroundCollecionable.cs" />
+    <Compile Include="CollecionableEventArgs.cs" />
     <Compile Include="Persistence.cs" />
     <Compile Include="Collecionable.cs" />
     <Compile Include="CollecionablesController.cs" />

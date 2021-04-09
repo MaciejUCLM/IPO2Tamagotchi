@@ -9,16 +9,27 @@ namespace Tamagotchi
 {
     class AchievementsController
     {
-        private List<Achievement> mItems;
         private Panel mPanel;
         private PlayerData mPlayer;
 
-        public AchievementsController(Panel panel, PlayerData player, Achievement[] achievements)
+        public AchievementsController(Panel panel, PlayerData player)
         {
             mPanel = panel;
             mPlayer = player;
-            mItems = new List<Achievement>();
-            mItems.AddRange(achievements);
+        }
+
+        public void Setup(MainWindow owner)
+        {
+            owner.EventStart += (s, e) => {
+                Add(new Achievement("media\\icons8-trophy.png", "Jugar {0} partidas").Obtain());
+            };
+            owner.EventCollecionable += (s, e) => {
+                Add(new Achievement("media\\icons8-gift.png", "Conseguir {0} coleccionables").Obtain());
+            };
+            owner.EventBonusUsed += (s, e) => {
+                Add(new Achievement("media\\icons8-medal.png", "Usar {0} premios").Obtain());
+            };
+            //new Achievement("media\\icons8-prize.png", "").Obtain()
         }
 
         public void Refresh()
@@ -30,7 +41,12 @@ namespace Tamagotchi
 
         public void Add(Achievement a)
         {
-            mPanel.Children.Add(a.GetImage());
+            if (a != null)
+            {
+                if (a.Level < 2)
+                    mPlayer.Achievements.Add(a);
+                mPanel.Children.Add(a.GetImage());
+            }
         }
     }
 }

@@ -45,6 +45,13 @@ namespace Tamagotchi
         private PlayerData mPlayer;
         private bool isPlaying = true;
 
+        public event EventHandler EventStart;
+        public event EventHandler EventGameover;
+        public event EventHandler EventCollecionable;
+        public event EventHandler EventCollecionableUsed;
+        public event EventHandler EventBonus;
+        public event EventHandler EventBonusUsed;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -115,13 +122,8 @@ namespace Tamagotchi
                 database.Add(mPlayer);
             }
 
-            achievements = new AchievementsController(StackAchievements, mPlayer, new Achievement[] {
-            });
-        }
-
-        private void CheckAchievements()
-        {
-            //mPlayer.Games > 10
+            achievements = new AchievementsController(StackAchievements, mPlayer);
+            achievements.Setup(this);
         }
 
         private void StartGame(object sender, EventArgs e)
@@ -137,6 +139,7 @@ namespace Tamagotchi
                 MsgBlock.Text = "Bienvenido " + mPlayer.Name;
                 isPlaying = true;
                 ButtonsEnabled(true);
+                EventStart?.Invoke(this, null);
             }
         }
 
@@ -148,6 +151,7 @@ namespace Tamagotchi
             isPlaying = false;
             ButtonsEnabled(false);
             mPlayer.Games += 1;
+            EventGameover?.Invoke(this, null);
 
             GameoverWindow window = new GameoverWindow(this);
             window.TextName = mPlayer.Name;
@@ -185,7 +189,8 @@ namespace Tamagotchi
             else if (rnd.NextDouble() < BONUS_CHANCE)
             {
                 MsgBlock.Text = comments.GetComment(CommentsFactory.TYPES.BONUS);
-                bonuses.PushRandomCollecionable();
+                var c = bonuses.PushRandomCollecionable();
+                EventBonus?.Invoke(c, null);
             }
         }
 
@@ -228,7 +233,8 @@ namespace Tamagotchi
             if (rnd.NextDouble() < DROP_CHANCE)
             {
                 MsgBlock.Text = comments.GetComment(CommentsFactory.TYPES.COLLECIONABLE);
-                collecionables.PushRandomCollecionable();
+                var c = collecionables.PushRandomCollecionable();
+                EventCollecionable?.Invoke(c, null);
             }
         }
 
@@ -246,6 +252,7 @@ namespace Tamagotchi
             ImageSource source = BackgroundImage.Source;
             BackgroundImage.Source = image.Source;
             image.Source = source;
+            EventCollecionableUsed?.Invoke(sender, null);
         }
 
         private void Item_Click(object sender)
@@ -281,6 +288,7 @@ namespace Tamagotchi
                     FoodBar.Value = 100;
                     break;
             }
+            EventBonusUsed?.Invoke(sender, null);
         }
 
         private void DragCollecionable_Down(object sender)
@@ -299,6 +307,7 @@ namespace Tamagotchi
             Image img = (Image)e.Data.GetData(typeof(DraggableCollecionable));
             imgHat.Source = img.Source;
             imgHat.Visibility = Visibility.Visible;
+            EventCollecionableUsed?.Invoke(img, null);
         }
 
         private void Win_Closing(object sender, System.ComponentModel.CancelEventArgs e)
