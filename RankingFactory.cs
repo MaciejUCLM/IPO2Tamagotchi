@@ -14,7 +14,7 @@ namespace Tamagotchi
         public static void PopulateRanking(Panel panel, List<PlayerData> data)
         {
             panel.Children.Clear();
-            data.Sort((a,b) => b.BestScore.Seconds - a.BestScore.Seconds);
+            data.Sort((a,b) => (int)(b.BestScore.TotalSeconds - a.BestScore.TotalSeconds));
             for (int i = 0; i < data.Count; i++)
                 panel.Children.Add(GetEntry(data[i], string.Format("{0}. ", i+1)));
         }

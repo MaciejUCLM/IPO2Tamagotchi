@@ -25,11 +25,11 @@ namespace Tamagotchi
     public partial class MainWindow : Window
     {
         private static double DROP_CHANCE = 0.1;
-        private static double BONUS_CHANCE = 0.03;
+        private static double BONUS_CHANCE = 0.035;
 
         private Random rnd;
         private DispatcherTimer timer;
-        private DispatcherTimer freezer;
+        private DispatcherTimer freezerEnergy, freezerDiversion, freezerFood;
         private Storyboard idleAnimation;
 
         private double step;
@@ -81,9 +81,15 @@ namespace Tamagotchi
             Diversion = 100;
             Food = 100;
 
-            freezer = new DispatcherTimer();
-            freezer.Interval = TimeSpan.FromSeconds(15);
-            freezer.Tick += Freezer_Tick;
+            freezerEnergy = new DispatcherTimer();
+            freezerEnergy.Interval = TimeSpan.FromSeconds(15);
+            freezerEnergy.Tick += Freezer_Tick;
+            freezerDiversion = new DispatcherTimer();
+            freezerDiversion.Interval = TimeSpan.FromSeconds(15);
+            freezerDiversion.Tick += Freezer_Tick;
+            freezerFood = new DispatcherTimer();
+            freezerFood.Interval = TimeSpan.FromSeconds(15);
+            freezerFood.Tick += Freezer_Tick;
 
             collecionables = new CollecionablesController(StackCollecionables, new Collecionable[] {
                 new BackgroundCollecionable("media\\gdansk.jpg", ChangeBackground),
@@ -167,7 +173,9 @@ namespace Tamagotchi
 
         private void GameOver()
         {
-            freezer.Stop();
+            freezerEnergy.Stop();
+            freezerDiversion.Stop();
+            freezerFood.Stop();
             timer.Stop();
             MsgBlock.Text = "GAMEOVER";
             isPlaying = false;
@@ -219,10 +227,14 @@ namespace Tamagotchi
 
         private void Freezer_Tick(object sender, EventArgs e)
         {
-            freezer.Stop();
-            mDiversificationCoef = 1;
-            mEnergyCoef = 1;
-            mFoodCoef = 1;
+            DispatcherTimer dispatcher = (DispatcherTimer)sender;
+            dispatcher.Stop();
+            if (dispatcher == freezerEnergy)
+                mEnergyCoef = 1;
+            else if (dispatcher == freezerDiversion)
+                mDiversificationCoef = 1;
+            else if (dispatcher == freezerFood)
+                mFoodCoef = 1;
         }
 
         private void PlayBtn_Click(object sender, RoutedEventArgs e)
@@ -286,15 +298,15 @@ namespace Tamagotchi
             {
                 case ItemCollecionable.TYPES.FREEZE_DIVERSION:
                     mDiversificationCoef = 0;
-                    freezer.Start();
+                    freezerDiversion.Start();
                     break;
                 case ItemCollecionable.TYPES.FREEZE_ENERGY:
                     mEnergyCoef = 0;
-                    freezer.Start();
+                    freezerEnergy.Start();
                     break;
                 case ItemCollecionable.TYPES.FREEZE_FOOD:
                     mFoodCoef = 0;
-                    freezer.Start();
+                    freezerFood.Start();
                     break;
                 case ItemCollecionable.TYPES.REFILL:
                     Energy = 100;
