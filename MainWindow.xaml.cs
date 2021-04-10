@@ -30,17 +30,18 @@ namespace Tamagotchi
         private Random rnd;
         private DispatcherTimer timer;
         private DispatcherTimer freezerEnergy, freezerDiversion, freezerFood;
-        private Storyboard idleAnimation;
 
         private double step;
         private double mEnergyCoef;
-        private double mDiversificationCoef;
+        private double mDiversionCoef;
         private double mFoodCoef;
 
         private AchievementsController achievements;
         private CommentsFactory comments;
         private CollecionablesController collecionables;
         private CollecionablesController bonuses;
+        private Storyboard idleAnimation;
+        private Shape[] colorableUi;
 
         private List<PlayerData> database;
         private PlayerData mPlayer;
@@ -55,7 +56,7 @@ namespace Tamagotchi
         public event EventHandler EventBonusUsed;
 
         public double Energy { get => EnergyBar.Value; set => EnergyBar.Value = value; }
-        public double Diversion { get => DiversificationBar.Value; set => DiversificationBar.Value = value; }
+        public double Diversion { get => DiversionBar.Value; set => DiversionBar.Value = value; }
         public double Food { get => FoodBar.Value; set => FoodBar.Value = value; }
 
         public MainWindow()
@@ -69,13 +70,14 @@ namespace Tamagotchi
                 anim.Completed += (object sender, EventArgs e) => { ButtonsEnabled(true); idleAnimation.Begin(); };
             }
             Initialize();
+            colorableUi = new Shape[] { wing_l, wing_r, root, head };
         }
 
         public void Initialize()
         {
             step = 1;
             mEnergyCoef = 1;
-            mDiversificationCoef = 1;
+            mDiversionCoef = 1;
             mFoodCoef = 1;
             Energy = 100;
             Diversion = 100;
@@ -208,8 +210,9 @@ namespace Tamagotchi
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            //if (imgHat.Visibility == Visibility.Hidden)
             Energy -= step * mEnergyCoef;
-            Diversion -= step * mDiversificationCoef;
+            Diversion -= step * mDiversionCoef;
             Food -= step * mFoodCoef;
 
             mPlayer.Score += timer.Interval;
@@ -232,7 +235,7 @@ namespace Tamagotchi
             if (dispatcher == freezerEnergy)
                 mEnergyCoef = 1;
             else if (dispatcher == freezerDiversion)
-                mDiversificationCoef = 1;
+                mDiversionCoef = 1;
             else if (dispatcher == freezerFood)
                 mFoodCoef = 1;
         }
@@ -255,7 +258,7 @@ namespace Tamagotchi
             }
             else if (sender == JugarBtn)
             {
-                bar = DiversificationBar;
+                bar = DiversionBar;
                 MsgBlock.Text = comments.GetComment(CommentsFactory.TYPES.PLAYING);
                 BeginStoryboard("playing");
             }
@@ -290,6 +293,14 @@ namespace Tamagotchi
             EventCollecionableUsed?.Invoke(sender, null);
         }
 
+        private void ChangeColor(Color clr)
+        {
+            foreach (var elem in colorableUi)
+            {
+                elem.Fill = new SolidColorBrush(clr);
+            }
+        }
+
         private void Item_Click(object sender)
         {
             var item = sender as ItemCollecionable;
@@ -297,7 +308,7 @@ namespace Tamagotchi
             switch (item.Type)
             {
                 case ItemCollecionable.TYPES.FREEZE_DIVERSION:
-                    mDiversificationCoef = 0;
+                    mDiversionCoef = 0;
                     freezerDiversion.Start();
                     break;
                 case ItemCollecionable.TYPES.FREEZE_ENERGY:
