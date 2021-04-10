@@ -1,0 +1,14 @@
+# Adaptabilidad de la interfaz (Layouts)
+Bueno. La interfaz se adapta completamente al tamaño de la ventana salvo el avatar de Tamagotchi.
+
+# Formas básicas e imágenes
+Bueno. Se puede mejorar la interfaz usando más imágenes y los de fondo no son perfectos. Hay iconos apropriados de logros y premios.
+
+# Animaciones y dinamismo
+Bueno. Hay animaciones del estado sin acción y de acciones. El color del Tamagotchi enseña que falta al Tamagotchi.
+
+# Estilos de interacción
+Excelente. La interacción es intuitiva y las botónes tienen Tooltips para ayudar al usuario. Hay diálogos para empezar, salir y empezar de nuevo un juego terminado. El ranking es un control de visualización de datos.
+
+# Jugabilidad
+Regular. Hay logros básicos, cuales tienen sus niveles - la cantidad de igual tipo del logro. Premios y coleccionables influyen el juego. Hay un ranking de los jugadores. Cada uno de los jugadores tiene su persistencia de los logros y de su mejor resultado. Los premios y coleccionables son aleatorios, pero hay pocos para dar una sensación de juego infinito.
