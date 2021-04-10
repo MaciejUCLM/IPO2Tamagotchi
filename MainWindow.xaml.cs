@@ -26,6 +26,7 @@ namespace Tamagotchi
     {
         private static double DROP_CHANCE = 0.1;
         private static double BONUS_CHANCE = 0.035;
+        private static double DIFFICULTY = 0.05;
 
         private Random rnd;
         private DispatcherTimer timer;
@@ -59,10 +60,15 @@ namespace Tamagotchi
         public double Diversion { get => DiversionBar.Value; set => DiversionBar.Value = value; }
         public double Food { get => FoodBar.Value; set => FoodBar.Value = value; }
 
+        public double EnergyCoef { get => mEnergyCoef; }
+        public double DiversionCoef { get => (imgHat.Visibility == Visibility.Visible) ? 0.5 * mDiversionCoef : mDiversionCoef; }
+        public double FoodCoef { get => mFoodCoef; }
+
         public MainWindow()
         {
             InitializeComponent();
             rnd = new Random();
+            colorableUi = new Shape[] { wing_l, wing_r, root, head, eyelid_l, eyelid_r };
             idleAnimation = (Storyboard)Resources["Idle"];
             foreach (string s in new string[] { "eating", "playing", "sleeping" })
             {
@@ -70,7 +76,6 @@ namespace Tamagotchi
                 anim.Completed += (object sender, EventArgs e) => { ButtonsEnabled(true); idleAnimation.Begin(); };
             }
             Initialize();
-            colorableUi = new Shape[] { wing_l, wing_r, root, head };
         }
 
         public void Initialize()
@@ -94,10 +99,10 @@ namespace Tamagotchi
             freezerFood.Tick += Freezer_Tick;
 
             collecionables = new CollecionablesController(StackCollecionables, new Collecionable[] {
-                new BackgroundCollecionable("media\\gdansk.jpg", ChangeBackground),
-                new BackgroundCollecionable("media\\hamburg.jpg", ChangeBackground),
-                new BackgroundCollecionable("media\\istanbul.jpg", ChangeBackground),
-                new BackgroundCollecionable("media\\petersburg.jpg", ChangeBackground),
+                new BackgroundCollecionable("media\\gdansk.jpg", ChangeBackground_Click),
+                new BackgroundCollecionable("media\\hamburg.jpg", ChangeBackground_Click),
+                new BackgroundCollecionable("media\\istanbul.jpg", ChangeBackground_Click),
+                new BackgroundCollecionable("media\\petersburg.jpg", ChangeBackground_Click),
                 new DraggableCollecionable("media\\c1.png", DragCollecionable_Down),
                 new DraggableCollecionable("media\\c2.png", DragCollecionable_Down),
                 new DraggableCollecionable("media\\c3.png", DragCollecionable_Down)
@@ -210,14 +215,15 @@ namespace Tamagotchi
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            //if (imgHat.Visibility == Visibility.Hidden)
-            Energy -= step * mEnergyCoef;
-            Diversion -= step * mDiversionCoef;
-            Food -= step * mFoodCoef;
+            Energy -= step * EnergyCoef;
+            Diversion -= step * DiversionCoef;
+            Food -= step * FoodCoef;
 
             mPlayer.Score += timer.Interval;
 
             EventTick?.Invoke(sender, e);
+            ChangeColor();
+
             if (Energy <= 0 || Diversion <= 0 || Food <= 0)
                 GameOver();
             else if (rnd.NextDouble() < BONUS_CHANCE)
@@ -264,9 +270,9 @@ namespace Tamagotchi
             }
 
             if (bar != null)
-                bar.Value = Math.Min(100, bar.Value + rnd.Next(9,15));
+                bar.Value = Math.Min(100, bar.Value + rnd.Next(9,16));
 
-            step = Math.Min(20, step + 0.1);
+            step = Math.Min(6, step + DIFFICULTY);
 
             if (rnd.NextDouble() < DROP_CHANCE)
             {
@@ -284,17 +290,24 @@ namespace Tamagotchi
                 this.Close();
         }
 
-        private void ChangeBackground(object sender)
+        private void ChangeBackground_Click(object sender)
         {
-            Image image = (Image)sender;
+            BackgroundCollecionable bg = (BackgroundCollecionable)sender;
             ImageSource source = BackgroundImage.Source;
-            BackgroundImage.Source = image.Source;
-            image.Source = source;
+            BackgroundImage.Source = bg.Source;
+            bg.Source = source;
             EventCollecionableUsed?.Invoke(sender, null);
+            if (bg.Visit())
+                Energy = Math.Min(100, Energy + 20);
         }
 
-        private void ChangeColor(Color clr)
+        private void ChangeColor()
         {
+            Color clr;
+            byte r = (byte)((Food / 100) * (Energy / 100) * 128 + 128);
+            byte g = (byte)((Diversion / 100) * (Energy / 100) * 128 + 128);
+            byte b = (byte)((Food / 100) * (Diversion / 100) * 128 + 128);
+            clr = Color.FromRgb(r, g, b);
             foreach (var elem in colorableUi)
             {
                 elem.Fill = new SolidColorBrush(clr);
