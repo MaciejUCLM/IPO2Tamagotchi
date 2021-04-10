@@ -31,10 +31,10 @@ namespace Tamagotchi
         private DispatcherTimer timer;
         private DispatcherTimer freezer;
 
-        private double step = 1;
-        private double mEnergyCoef = 1;
-        private double mDiversificationCoef = 1;
-        private double mFoodCoef = 1;
+        private double step;
+        private double mEnergyCoef;
+        private double mDiversificationCoef;
+        private double mFoodCoef;
 
         private AchievementsController achievements;
         private CommentsFactory comments;
@@ -61,6 +61,14 @@ namespace Tamagotchi
 
         public void Initialize()
         {
+            step = 1;
+            mEnergyCoef = 1;
+            mDiversificationCoef = 1;
+            mFoodCoef = 1;
+            EnergyBar.Value = 100;
+            DiversificationBar.Value = 100;
+            FoodBar.Value = 100;
+
             rnd = new Random();
             freezer = new DispatcherTimer();
             freezer.Interval = TimeSpan.FromSeconds(15);
@@ -125,6 +133,7 @@ namespace Tamagotchi
 
             achievements = new AchievementsController(StackAchievements, mPlayer);
             achievements.Setup(this);
+            achievements.Refresh();
         }
 
         private void StartGame(object sender, EventArgs e)
@@ -151,7 +160,7 @@ namespace Tamagotchi
             MsgBlock.Text = "GAMEOVER";
             isPlaying = false;
             ButtonsEnabled(false);
-            mPlayer.Games += 1;
+            Persistence.GetInstance().Save(database);
             EventGameover?.Invoke(this, null);
 
             GameoverWindow window = new GameoverWindow(this);
