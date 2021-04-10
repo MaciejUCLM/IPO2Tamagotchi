@@ -21,6 +21,7 @@ namespace Tamagotchi
             mPanel = target;
             mItems = new List<Collecionable>();
             mItems.AddRange(collecionables);
+            mPanel.Children.Clear();
         }
 
         public void Add(UIElement elem)
