@@ -30,6 +30,7 @@ namespace Tamagotchi
         private Random rnd;
         private DispatcherTimer timer;
         private DispatcherTimer freezer;
+        private Storyboard idleAnimation;
 
         private double step;
         private double mEnergyCoef;
@@ -53,9 +54,20 @@ namespace Tamagotchi
         public event EventHandler EventBonus;
         public event EventHandler EventBonusUsed;
 
+        public double Energy { get => EnergyBar.Value; set => EnergyBar.Value = value; }
+        public double Diversion { get => DiversificationBar.Value; set => DiversificationBar.Value = value; }
+        public double Food { get => FoodBar.Value; set => FoodBar.Value = value; }
+
         public MainWindow()
         {
             InitializeComponent();
+            rnd = new Random();
+            idleAnimation = (Storyboard)Resources["Idle"];
+            foreach (string s in new string[] { "eating", "playing", "sleeping" })
+            {
+                Storyboard anim = (Storyboard)Resources[s];
+                anim.Completed += (object sender, EventArgs e) => { ButtonsEnabled(true); idleAnimation.Begin(); };
+            }
             Initialize();
         }
 
@@ -65,11 +77,10 @@ namespace Tamagotchi
             mEnergyCoef = 1;
             mDiversificationCoef = 1;
             mFoodCoef = 1;
-            EnergyBar.Value = 100;
-            DiversificationBar.Value = 100;
-            FoodBar.Value = 100;
+            Energy = 100;
+            Diversion = 100;
+            Food = 100;
 
-            rnd = new Random();
             freezer = new DispatcherTimer();
             freezer.Interval = TimeSpan.FromSeconds(15);
             freezer.Tick += Freezer_Tick;
@@ -150,6 +161,7 @@ namespace Tamagotchi
                 isPlaying = true;
                 ButtonsEnabled(true);
                 EventStart?.Invoke(this, null);
+                idleAnimation.Begin();
             }
         }
 
@@ -173,7 +185,7 @@ namespace Tamagotchi
         {
             Storyboard anim = (Storyboard)Resources[name];
             ButtonsEnabled(false);
-            anim.Completed += (object sender, EventArgs e) => ButtonsEnabled(true);
+            idleAnimation.Stop();
             anim.Begin();
         }
 
@@ -188,14 +200,14 @@ namespace Tamagotchi
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            EnergyBar.Value -= step * mEnergyCoef;
-            DiversificationBar.Value -= step * mDiversificationCoef;
-            FoodBar.Value -= step * mFoodCoef;
+            Energy -= step * mEnergyCoef;
+            Diversion -= step * mDiversificationCoef;
+            Food -= step * mFoodCoef;
 
             mPlayer.Score += timer.Interval;
 
             EventTick?.Invoke(sender, e);
-            if (EnergyBar.Value <= 0 || DiversificationBar.Value <= 0 || FoodBar.Value <= 0)
+            if (Energy <= 0 || Diversion <= 0 || Food <= 0)
                 GameOver();
             else if (rnd.NextDouble() < BONUS_CHANCE)
             {
@@ -285,18 +297,18 @@ namespace Tamagotchi
                     freezer.Start();
                     break;
                 case ItemCollecionable.TYPES.REFILL:
-                    EnergyBar.Value = 100;
-                    DiversificationBar.Value = 100;
-                    FoodBar.Value = 100;
+                    Energy = 100;
+                    Diversion = 100;
+                    Food = 100;
                     break;
                 case ItemCollecionable.TYPES.RESTORE_DIVERSION:
-                    DiversificationBar.Value = 100;
+                    Diversion = 100;
                     break;
                 case ItemCollecionable.TYPES.RESTORE_ENERGY:
-                    EnergyBar.Value = 100;
+                    Energy = 100;
                     break;
                 case ItemCollecionable.TYPES.RESTORE_FOOD:
-                    FoodBar.Value = 100;
+                    Food = 100;
                     break;
             }
             EventBonusUsed?.Invoke(sender, null);

@@ -299,11 +299,6 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
-    <Window.Triggers>
-        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-            <BeginStoryboard Storyboard="{StaticResource Idle}"/>
-        </EventTrigger>
-    </Window.Triggers>
     <Grid Background="#FF3C3C3C">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150*"/>
